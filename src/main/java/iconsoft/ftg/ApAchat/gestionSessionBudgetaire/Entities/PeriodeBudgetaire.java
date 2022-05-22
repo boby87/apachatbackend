@@ -3,7 +3,9 @@ package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class PeriodeBudgetaire {
@@ -14,10 +16,11 @@ public class PeriodeBudgetaire {
     private String statut;
     private boolean active;
     private double montant;
+    @OneToMany(mappedBy = "periodeBudgetaire")
+    private List<LigneBudgetaire> ligneBudgetaires=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "iddirecteurachat",nullable = false)
     private DirecteurAchat directeurAchat;
-
 
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class PeriodeBudgetaire {
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public List<LigneBudgetaire> getLigneBudgetaires() {
+        return ligneBudgetaires;
+    }
+
+    public void setLigneBudgetaires(List<LigneBudgetaire> ligneBudgetaires) {
+        this.ligneBudgetaires = ligneBudgetaires;
     }
 
     public DirecteurAchat getDirecteurAchat() {
