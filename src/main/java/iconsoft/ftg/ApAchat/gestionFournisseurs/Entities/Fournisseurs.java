@@ -1,6 +1,9 @@
 package iconsoft.ftg.ApAchat.gestionFournisseurs.Entities;
 
+import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DevisFournisseur;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Fournisseurs {
@@ -13,6 +16,8 @@ public class Fournisseurs {
     @Column(unique = true,nullable = false)
     private String reference;
     private boolean active=true;
+    @OneToMany(mappedBy = "fournisseurs")
+    private List<DevisFournisseur> devisfournisseurs;
 
     public Long getId() {
         return id;
@@ -68,5 +73,13 @@ public class Fournisseurs {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<DevisFournisseur> getDevisfournisseurs() {
+        return devisfournisseurs;
+    }
+
+    public void setDevisfournisseurs(List<DevisFournisseur> devisfournisseurs) {
+        this.devisfournisseurs = devisfournisseurs;
     }
 }
