@@ -10,10 +10,8 @@ import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class DirecteurAchat extends Utilisateur{
+public class AcheteurMetier extends Utilisateur{
 
-    @OneToMany(mappedBy = "directeurAchat")
-    List<PeriodeBudgetaire> periodeBudgetaires;
     @OneToMany(mappedBy = "acheteurmetier")
     List<DemandeAchat> demandeachats;
 
@@ -23,12 +21,5 @@ public class DirecteurAchat extends Utilisateur{
 
     public void setDemandeAchats(List<DemandeAchat> demandeAchats) {
         this.demandeachats = demandeAchats;
-    }
-    public List<PeriodeBudgetaire> getPeriodeBudgetaires() {
-        return periodeBudgetaires;
-    }
-
-    public void setPeriodeBudgetaires(List<PeriodeBudgetaire> periodeBudgetaires) {
-        this.periodeBudgetaires = periodeBudgetaires;
     }
 }

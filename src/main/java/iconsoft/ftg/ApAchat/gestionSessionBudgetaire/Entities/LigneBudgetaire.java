@@ -18,7 +18,7 @@ public class LigneBudgetaire {
     private Date date;
     @ManyToOne
     @JoinColumn(name = "idperiodebuggetaire")
-    private PeriodeBudgetaire periodeBudgetaire;
+    private PeriodeBudgetaire periodebudgetaire;
 
     public Long getId() {
         return id;
@@ -101,10 +101,10 @@ public class LigneBudgetaire {
     }
 
     public PeriodeBudgetaire getPeriodeBudgetaire() {
-        return periodeBudgetaire;
+        return periodebudgetaire;
     }
 
     public void setPeriodeBudgetaire(PeriodeBudgetaire periodeBudgetaire) {
-        this.periodeBudgetaire = periodeBudgetaire;
+        this.periodebudgetaire = periodeBudgetaire;
     }
 }

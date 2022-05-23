@@ -16,8 +16,8 @@ public class PeriodeBudgetaire {
     private String statut;
     private boolean active;
     private double montant;
-    @OneToMany(mappedBy = "periodeBudgetaire")
-    private List<LigneBudgetaire> ligneBudgetaires=new ArrayList<>();
+    @OneToMany(mappedBy = "periodebudgetaire")
+    private List<LigneBudgetaire> lignebudgetaires=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "iddirecteurachat",nullable = false)
     private DirecteurAchat directeurAchat;
@@ -72,11 +72,11 @@ public class PeriodeBudgetaire {
     }
 
     public List<LigneBudgetaire> getLigneBudgetaires() {
-        return ligneBudgetaires;
+        return lignebudgetaires;
     }
 
     public void setLigneBudgetaires(List<LigneBudgetaire> ligneBudgetaires) {
-        this.ligneBudgetaires = ligneBudgetaires;
+        this.lignebudgetaires = ligneBudgetaires;
     }
 
     public DirecteurAchat getDirecteurAchat() {
