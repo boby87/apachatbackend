@@ -15,15 +15,16 @@ public class FournisseurRestfull {
     @Autowired
     MetierFournisseur metierFournisseur;
 
+    @GetMapping("all")
+    List<FournisseursDto> findByActiveIsTrue(){
+        return metierFournisseur.findByActiveIsTrue();
+    }
+
     @GetMapping("byreference/{reference}")
     FournisseursDto findByReferenceAndActiveIsTrue(@PathVariable String reference){
         return metierFournisseur.findByReferenceAndActiveIsTrue(reference);
     }
 
-    @GetMapping("all}")
-    List<FournisseursDto> findByActiveIsTrue(){
-        return metierFournisseur.findByActiveIsTrue();
-    }
     @PostMapping("save")
     FournisseursDto saveFournisseur(@RequestBody FournisseursDto fournisseursDto){
         return metierFournisseur.saveFournisseur(fournisseursDto);

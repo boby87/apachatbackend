@@ -1,4 +1,4 @@
-package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities;
+package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto;
 
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 
@@ -7,32 +7,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class PeriodeBudgetaire {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PeriodeBudgetaireDto {
+
     private Date date=new Date();
-    @Column(unique = true,nullable = false)
     private String anneebugetaire;
     private String statut;
-    @Column(unique = true,nullable = false)
     private String reference;
     private boolean active;
     private double montant;
-    @OneToMany(mappedBy = "periodebudgetaire")
-    private List<LigneBudgetaire> lignebudgetaires=new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "iddirecteurachat",nullable = false)
+    private List<LigneBudgetaireDto> lignebudgetairesDtos=new ArrayList<>();
+
     private DirecteurAchat directeurAchat;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;
@@ -58,6 +44,14 @@ public class PeriodeBudgetaire {
         this.statut = statut;
     }
 
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -74,12 +68,12 @@ public class PeriodeBudgetaire {
         this.montant = montant;
     }
 
-    public List<LigneBudgetaire> getLigneBudgetaires() {
-        return lignebudgetaires;
+    public List<LigneBudgetaireDto> getLignebudgetairesDtos() {
+        return lignebudgetairesDtos;
     }
 
-    public void setLigneBudgetaires(List<LigneBudgetaire> ligneBudgetaires) {
-        this.lignebudgetaires = ligneBudgetaires;
+    public void setLignebudgetairesDtos(List<LigneBudgetaireDto> lignebudgetairesDtos) {
+        this.lignebudgetairesDtos = lignebudgetairesDtos;
     }
 
     public DirecteurAchat getDirecteurAchat() {
@@ -88,21 +82,5 @@ public class PeriodeBudgetaire {
 
     public void setDirecteurAchat(DirecteurAchat directeurAchat) {
         this.directeurAchat = directeurAchat;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public List<LigneBudgetaire> getLignebudgetaires() {
-        return lignebudgetaires;
-    }
-
-    public void setLignebudgetaires(List<LigneBudgetaire> lignebudgetaires) {
-        this.lignebudgetaires = lignebudgetaires;
     }
 }

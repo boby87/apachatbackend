@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("article")
 public class ArticleRestfull {
@@ -14,7 +14,7 @@ public class ArticleRestfull {
     @Autowired
     MetierArticle metierArticle;
 
-    @GetMapping("all")
+    @GetMapping("allarticle")
     List<ArticleDto> findByActiveIsTrue(){
         return metierArticle.findByActiveIsTrue();
     }
