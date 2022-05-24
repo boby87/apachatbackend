@@ -13,7 +13,6 @@ public class LigneBudgetaireDto {
     private boolean active;
     private String reference;
     private Date date;
-    private PeriodeBudgetaireDto periodeBudgetaireDto;
 
     public String getDénomination() {
         return dénomination;
@@ -87,11 +86,4 @@ public class LigneBudgetaireDto {
         this.date = date;
     }
 
-    public PeriodeBudgetaireDto getPeriodeBudgetaireDto() {
-        return periodeBudgetaireDto;
-    }
-
-    public void setPeriodeBudgetaireDto(PeriodeBudgetaireDto periodeBudgetaireDto) {
-        this.periodeBudgetaireDto = periodeBudgetaireDto;
-    }
 }

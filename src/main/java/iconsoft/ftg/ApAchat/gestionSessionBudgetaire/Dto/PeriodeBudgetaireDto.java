@@ -15,7 +15,6 @@ public class PeriodeBudgetaireDto {
     private String reference;
     private boolean active;
     private double montant;
-    private List<LigneBudgetaireDto> lignebudgetairesDtos=new ArrayList<>();
 
     private DirecteurAchat directeurAchat;
 
@@ -68,13 +67,6 @@ public class PeriodeBudgetaireDto {
         this.montant = montant;
     }
 
-    public List<LigneBudgetaireDto> getLignebudgetairesDtos() {
-        return lignebudgetairesDtos;
-    }
-
-    public void setLignebudgetairesDtos(List<LigneBudgetaireDto> lignebudgetairesDtos) {
-        this.lignebudgetairesDtos = lignebudgetairesDtos;
-    }
 
     public DirecteurAchat getDirecteurAchat() {
         return directeurAchat;

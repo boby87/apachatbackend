@@ -9,6 +9,7 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +36,7 @@ public class ServiceAccount implements MetierAccount {
         String hash = bCryptPasswordEncoder.encode(registerDto.getPassword());
         registerDto.setPassword(hash);
         BeanUtils.copyProperties(registerDto, utilisateur);
+        utilisateur.setReference(RandomReference.randomString(5));
         utilisateur = daoUtilisateur.save(utilisateur);
         utilisateur = addRoleToUser(utilisateur.getMatricule(), registerDto.getFonction());
         BeanUtils.copyProperties(utilisateur, registerDto);
