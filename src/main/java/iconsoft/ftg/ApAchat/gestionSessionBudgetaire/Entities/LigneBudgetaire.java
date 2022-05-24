@@ -1,5 +1,7 @@
 package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,10 +17,21 @@ public class LigneBudgetaire {
     private double statut;
     private boolean active;
     private String reference;
-    private Date date;
+    private Date date=new Date();
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idperiodebuggetaire")
     private PeriodeBudgetaire periodebudgetaire;
+
+
+
+    public PeriodeBudgetaire getPeriodebudgetaire() {
+        return periodebudgetaire;
+    }
+
+    public void setPeriodebudgetaire(PeriodeBudgetaire periodebudgetaire) {
+        this.periodebudgetaire = periodebudgetaire;
+    }
 
     public Long getId() {
         return id;

@@ -1,8 +1,11 @@
 package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Service;
 
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.ConstateBudget;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dao.DaoLigneBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.LigneBudgetaireDto;
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.PeriodeBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.LigneBudgetaire;
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.PeriodeBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Metier.MetierLigneBudgetaire;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
@@ -47,5 +50,18 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
         LigneBudgetaire ligneBudgetaire=daoLigneBudgetaire.findByReferenceAndActiveIsTrue(ligneBudgetaireDto.getReference());
         BeanUtils.copyProperties(ligneBudgetaireDto,ligneBudgetaire);
         return true;
+    }
+    @Override
+    public void saveAllLigneBudgetaire(PeriodeBudgetaire periodeBudgetaire){
+        saveligne(new LigneBudgetaireDto("Pneus + pare brise", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Assurances et prime", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Eau/Electricité/internet/téléphone", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Travaux et amenagement", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Depot de garantie", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Honoraires", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Marketing", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Autres", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Loyer", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+
     }
 }

@@ -17,7 +17,7 @@ public class PeriodeBudgetaire {
     private String statut;
     @Column(unique = true,nullable = false)
     private String reference;
-    private boolean active;
+    private boolean active=true;
     private double montant;
     @OneToMany(mappedBy = "periodebudgetaire")
     private List<LigneBudgetaire> lignebudgetaires=new ArrayList<>();

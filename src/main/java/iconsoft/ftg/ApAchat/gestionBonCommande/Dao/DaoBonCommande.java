@@ -1,0 +1,12 @@
+package iconsoft.ftg.ApAchat.gestionBonCommande.Dao;
+
+import iconsoft.ftg.ApAchat.gestionBonCommande.Entities.BonCommande;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface DaoBonCommande extends JpaRepository<BonCommande,Long> {
+    BonCommande findByReferenceAndActiveIsTrue(String reference);
+    List<BonCommande> findByActiveIsTrue();
+
+}

@@ -2,6 +2,7 @@ package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Metier;
 
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.LigneBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.LigneBudgetaire;
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.PeriodeBudgetaire;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface MetierLigneBudgetaire {
     LigneBudgetaire findByReferenceAndActiveIsTrue(String reference);
     LigneBudgetaire saveligne(LigneBudgetaireDto ligneBudgetaireDto);
     boolean updatelignebudgetaire(LigneBudgetaireDto ligneBudgetaireDto);
-
+    void saveAllLigneBudgetaire(PeriodeBudgetaire periodeBudgetaire);
 }

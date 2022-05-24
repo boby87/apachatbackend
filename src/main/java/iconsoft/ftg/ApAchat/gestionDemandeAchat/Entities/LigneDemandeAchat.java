@@ -12,6 +12,8 @@ public class LigneDemandeAchat {
     private double pu;
     private double pt;
     private Date date;
+    @Column(nullable = false,unique = true)
+    private String reference;
     @ManyToOne
     @JoinColumn(name = "iddemandeachat")
     private DemandeAchat demandeachat;
@@ -65,5 +67,13 @@ public class LigneDemandeAchat {
 
     public void setDemandeachat(DemandeAchat demandeachat) {
         this.demandeachat = demandeachat;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 }

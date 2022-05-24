@@ -1,5 +1,6 @@
 package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Service;
 
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.ConstateBudget;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dao.DaoPeriodeBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.PeriodeBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.PeriodeBudgetaire;
@@ -61,6 +62,8 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
         BeanUtils.copyProperties(periodeBudgetaireDto,periodeBudgetaire);
         periodeBudgetaire=daoPeriodeBudgetaire.save(periodeBudgetaire);
         periodeBudgetaire.setReference(RandomReference.randomString(10));
+        periodeBudgetaire.setStatut(ConstateBudget.NON_VALIDE);
+        metierLigneBudgetaire.saveAllLigneBudgetaire(periodeBudgetaire);
         BeanUtils.copyProperties(periodeBudgetaire,periodeBudgetaireDto);
         return periodeBudgetaireDto;
     }

@@ -16,7 +16,7 @@ public class DevisFournisseur {
     private String imagedevis;
     @Column(nullable = false,unique = true)
     private String reference;
-    private String referencefornisseur;
+    private String referencedoc;
     @ManyToOne
     @JoinColumn(name = "iddemandeachat",unique = true)
     private DemandeAchat demandeachat;
@@ -72,12 +72,12 @@ public class DevisFournisseur {
         this.reference = reference;
     }
 
-    public String getReferencefornisseur() {
-        return referencefornisseur;
+    public String getReferencedoc() {
+        return referencedoc;
     }
 
-    public void setReferencefornisseur(String referencefornisseur) {
-        this.referencefornisseur = referencefornisseur;
+    public void setReferencedoc(String referencefornisseur) {
+        this.referencedoc = referencefornisseur;
     }
 
     public DemandeAchat getDemandeachat() {
