@@ -12,6 +12,7 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ public class ServiceAccount implements MetierAccount {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     DaoUtilisateur daoUtilisateur;
+    @Autowired
     DaoRolesUser daoRolesUser;
 
     @Override
@@ -52,7 +54,7 @@ public class ServiceAccount implements MetierAccount {
 
     @Override
     public Utilisateur addRoleToUser(String matricule, String rolename) {
-        if (ConstanteRoles.DIRECTEUR_ACHAT.equals(rolename) || ConstanteRoles.ACHETEUR_METIER.equals(rolename) || ConstanteRoles.RESPONSABLE_STOCK.equals(rolename)) {
+        if (ConstanteRoles.DIRECTEUR_ACHAT.equals(rolename) || ConstanteRoles.ACHETEUR_METIER.equals(rolename) || ConstanteRoles.RESPONSABLE_STOCK.equals(rolename)|| ConstanteRoles.ADMIN.equals(rolename)) {
             Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matricule);
             RolesUser rolesUser = daoRolesUser.findByRolesnameAndActiveIsTrue(rolename);
             utilisateur.getRolesUsers().add(rolesUser);
@@ -76,7 +78,22 @@ public class ServiceAccount implements MetierAccount {
     public UtilisateurDto findByMatriculeOrLoginAndActiveIsTrue(String username) {
         Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(username);
         UtilisateurDto utilisateurDto = new UtilisateurDto();
-        BeanUtils.copyProperties(utilisateur, utilisateurDto);
+        if (utilisateur!=null) BeanUtils.copyProperties(utilisateur, utilisateurDto);
         return utilisateurDto;
+    }
+    @Bean
+    void generateAdmin(){
+        daoRolesUser.save(new RolesUser(ConstanteRoles.ADMIN));
+        daoRolesUser.save(new RolesUser(ConstanteRoles.ACHETEUR_METIER));
+        daoRolesUser.save(new RolesUser(ConstanteRoles.DIRECTEUR_ACHAT));
+        daoRolesUser.save(new RolesUser(ConstanteRoles.RESPONSABLE_STOCK));
+        RegisterDto registerDto=new RegisterDto();
+        registerDto.setPassword("12345678");
+        registerDto.setEmail("admin@gmail.com");
+        registerDto.setFonction(ConstanteRoles.ADMIN);
+        registerDto.setLogin("admin");
+        registerDto.setTelephone("7777777");
+        registerDto.setMatricule("agtre");
+        saveUser(registerDto);
     }
 }

@@ -8,6 +8,14 @@ public class RolesUser {
     private Long id;
     private String rolesname;
     private boolean active=true;
+
+    public RolesUser() {
+    }
+
+    public RolesUser(String rolesname) {
+        this.rolesname = rolesname;
+    }
+
     public Long getId() {
         return id;
     }
