@@ -57,7 +57,16 @@ public class ServiceAccount implements MetierAccount {
         if (ConstanteRoles.DIRECTEUR_ACHAT.equals(rolename) || ConstanteRoles.ACHETEUR_METIER.equals(rolename) || ConstanteRoles.RESPONSABLE_STOCK.equals(rolename)|| ConstanteRoles.ADMIN.equals(rolename)) {
             Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matricule);
             RolesUser rolesUser = daoRolesUser.findByRolesnameAndActiveIsTrue(rolename);
+            System.out.println("----------------------------------");
+            System.out.println("test utilisateur nom : " + utilisateur.getNom());
+            System.out.println("----------------------------------");
+            if (utilisateur.getRolesUsers() == null) {
+                utilisateur.setRolesUsers(new ArrayList<>());
+            }
             utilisateur.getRolesUsers().add(rolesUser);
+            System.out.println("----------------------------------");
+            System.out.println("test2 utilisateur prenom : " + utilisateur.getPrenom());
+            System.out.println("----------------------------------");
             return utilisateur;
         } else throw new RuntimeException();
 
