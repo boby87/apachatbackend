@@ -2,6 +2,7 @@ package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Service;
 
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.ConstateBudget;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dao.DaoLigneBudgetaire;
+import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dao.DaoPeriodeBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.LigneBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.PeriodeBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.LigneBudgetaire;
@@ -20,7 +21,8 @@ import java.util.List;
 public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
     @Autowired
     DaoLigneBudgetaire daoLigneBudgetaire;
-
+    @Autowired
+    DaoPeriodeBudgetaire daoPeriodeBudgetaire;
 
     @Override
     public List<LigneBudgetaire> findall() {
@@ -38,11 +40,13 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
     }
 
     @Override
-    public LigneBudgetaire saveligne(LigneBudgetaireDto ligneBudgetaireDto) {
+    public LigneBudgetaire saveligne(LigneBudgetaireDto ligneBudgetaireDto,PeriodeBudgetaire periodeBudgetaire) {
         LigneBudgetaire ligneBudgetaire=new LigneBudgetaire();
         BeanUtils.copyProperties(ligneBudgetaireDto,ligneBudgetaire);
         ligneBudgetaire.setReference(RandomReference.randomString(10));
-        return daoLigneBudgetaire.save(ligneBudgetaire);
+        ligneBudgetaire=daoLigneBudgetaire.save(ligneBudgetaire);
+        ligneBudgetaire.setPeriodebudgetaire(periodeBudgetaire);
+        return ligneBudgetaire;
     }
 
     @Override
@@ -57,16 +61,17 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
         return true;
     }
     @Override
-    public void saveAllLigneBudgetaire(PeriodeBudgetaire periodeBudgetaire){
-        saveligne(new LigneBudgetaireDto("Pneus + pare brise", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Assurances et prime", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Eau/Electricité/internet/téléphone", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Travaux et amenagement", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Depot de garantie", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Honoraires", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Marketing", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Autres", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
-        saveligne(new LigneBudgetaireDto("Loyer", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+    public void saveAllLigneBudgetaire(String referenceperiode){
+        PeriodeBudgetaire periodeBudgetaire=daoPeriodeBudgetaire.findByReferenceAndActiveIsTrue(referenceperiode);
+        saveligne(new LigneBudgetaireDto("Pneus + pare brise", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Assurances et prime", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Eau/Electricité/internet/téléphone", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Travaux et amenagement", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Depot de garantie", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Honoraires", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Marketing", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Autres", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
+        saveligne(new LigneBudgetaireDto("Loyer", ConstateBudget.NON_VALIDE,RandomReference.randomString(12)),periodeBudgetaire);
     }
 
     @Override

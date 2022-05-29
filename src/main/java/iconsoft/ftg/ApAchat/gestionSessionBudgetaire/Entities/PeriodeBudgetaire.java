@@ -1,5 +1,6 @@
 package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 
 import javax.persistence.*;
@@ -19,8 +20,10 @@ public class PeriodeBudgetaire {
     private String reference;
     private boolean active=true;
     private double montant;
+    @JsonIgnore
     @OneToMany(mappedBy = "periodebudgetaire")
     private List<LigneBudgetaire> lignebudgetaires=new ArrayList<>();
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "iddirecteurachat",nullable = false)
     private DirecteurAchat directeurAchat;

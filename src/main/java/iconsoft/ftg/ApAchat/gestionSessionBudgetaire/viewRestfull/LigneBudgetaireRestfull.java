@@ -28,9 +28,9 @@ public class LigneBudgetaireRestfull {
     LigneBudgetaire findByReferenceAndActiveIsTrue(@PathVariable String reference){
         return metierLigneBudgetaire.findByReferenceAndActiveIsTrue(reference);
     }
-    @PostMapping("save")
-    LigneBudgetaire saveligne(@RequestBody LigneBudgetaireDto ligneBudgetaireDto){
-        return metierLigneBudgetaire.saveligne(ligneBudgetaireDto);
+    @GetMapping("save/{referenceperiode}")
+    void saveAllLigneBudgetaire(@PathVariable String referenceperiode){
+         metierLigneBudgetaire.saveAllLigneBudgetaire(referenceperiode);
     }
     @PutMapping("update")
     boolean updatelignebudgetaire(@RequestBody LigneBudgetaireDto ligneBudgetaireDto){

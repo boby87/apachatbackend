@@ -10,9 +10,9 @@ public interface MetierLigneBudgetaire {
     List<LigneBudgetaire> findall();
     List<LigneBudgetaire> findByActiveIsTrue();
     LigneBudgetaire findByReferenceAndActiveIsTrue(String reference);
-    LigneBudgetaire saveligne(LigneBudgetaireDto ligneBudgetaireDto);
+    LigneBudgetaire saveligne(LigneBudgetaireDto ligneBudgetaireDto,PeriodeBudgetaire periodeBudgetaire);
     LigneBudgetaire localSaveligne(LigneBudgetaire ligneBudgetaire);
     boolean updatelignebudgetaire(LigneBudgetaireDto ligneBudgetaireDto);
-    void saveAllLigneBudgetaire(PeriodeBudgetaire periodeBudgetaire);
+    void saveAllLigneBudgetaire(String referenceperiode);
     boolean deleteLigneBudgetaire(String reference);
 }

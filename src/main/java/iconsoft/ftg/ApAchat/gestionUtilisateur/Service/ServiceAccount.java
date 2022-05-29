@@ -1,14 +1,14 @@
 package iconsoft.ftg.ApAchat.gestionUtilisateur.Service;
 
 import iconsoft.ftg.ApAchat.gestionUtilisateur.ConstanteRoles;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoAdmin;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoDirecteurAchat;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoRolesUser;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoUtilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RegisterDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RolesUserDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.*;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +30,10 @@ public class ServiceAccount implements MetierAccount {
     DaoUtilisateur daoUtilisateur;
     @Autowired
     DaoRolesUser daoRolesUser;
+    @Autowired
+    DaoDirecteurAchat daoDirecteurAchat;
+    @Autowired
+    DaoAdmin daoAdmin;
 
     @Override
     public RegisterDto saveUser(RegisterDto registerDto) {
@@ -40,7 +44,15 @@ public class ServiceAccount implements MetierAccount {
         registerDto.setPassword(hash);
         BeanUtils.copyProperties(registerDto, utilisateur);
         utilisateur.setReference(RandomReference.randomString(5));
-        utilisateur = daoUtilisateur.save(utilisateur);
+        if (ConstanteRoles.DIRECTEUR_ACHAT.equals(utilisateur.getFonction())){
+            DirecteurAchat directeurAchat=new DirecteurAchat();
+            BeanUtils.copyProperties(utilisateur,directeurAchat);
+            utilisateur = daoDirecteurAchat.save(directeurAchat);
+        }else if (ConstanteRoles.ADMIN.equals(utilisateur.getFonction())){
+            AdminUtilisateur adminUtilisateur=new AdminUtilisateur();
+            BeanUtils.copyProperties(utilisateur,adminUtilisateur);
+            utilisateur = daoAdmin.save(adminUtilisateur);
+        }
         addRoleToUser(utilisateur.getMatricule(), registerDto.getFonction());
         utilisateur =daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateur.getMatricule());
                 BeanUtils.copyProperties(utilisateur, registerDto);
@@ -110,19 +122,27 @@ public class ServiceAccount implements MetierAccount {
         return daoUtilisateur.findByFonction(fonction);
     }
 
+    @Override
+    public DirecteurAchat findByDirecteurReferenceAndActiveIsTrue(String reference) {
+        return daoDirecteurAchat.findByReferenceAndActiveIsTrue(reference);
+    }
+
     @Bean
     void generateAdmin(){
-        daoRolesUser.save(new RolesUser(ConstanteRoles.ADMIN));
-        daoRolesUser.save(new RolesUser(ConstanteRoles.ACHETEUR_METIER));
-        daoRolesUser.save(new RolesUser(ConstanteRoles.DIRECTEUR_ACHAT));
-        daoRolesUser.save(new RolesUser(ConstanteRoles.RESPONSABLE_STOCK));
-        RegisterDto registerDto=new RegisterDto();
-        registerDto.setPassword("12345678");
-        registerDto.setEmail("admin@gmail.com");
-        registerDto.setFonction(ConstanteRoles.ADMIN);
-        registerDto.setLogin("admin");
-        registerDto.setTelephone("7777777");
-        registerDto.setMatricule("sophie");
-        saveUser(registerDto);
+        if (daoAdmin.findAll().isEmpty()){
+            daoRolesUser.save(new RolesUser(ConstanteRoles.ADMIN));
+            daoRolesUser.save(new RolesUser(ConstanteRoles.ACHETEUR_METIER));
+            daoRolesUser.save(new RolesUser(ConstanteRoles.DIRECTEUR_ACHAT));
+            daoRolesUser.save(new RolesUser(ConstanteRoles.RESPONSABLE_STOCK));
+            RegisterDto registerDto=new RegisterDto();
+            registerDto.setPassword("12345678");
+            registerDto.setEmail("admin@gmail.com");
+            registerDto.setFonction(ConstanteRoles.ADMIN);
+            registerDto.setLogin("admin");
+            registerDto.setTelephone("7777777");
+            registerDto.setMatricule("sophie");
+            saveUser(registerDto);
+        }
+
     }
 }

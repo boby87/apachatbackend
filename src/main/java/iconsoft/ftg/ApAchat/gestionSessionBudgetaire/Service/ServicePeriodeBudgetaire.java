@@ -6,6 +6,8 @@ import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.PeriodeBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.PeriodeBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Metier.MetierLigneBudgetaire;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Metier.MetierPeriodeBudgetaire;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
     DaoPeriodeBudgetaire daoPeriodeBudgetaire;
     @Autowired
     MetierLigneBudgetaire metierLigneBudgetaire;
+    @Autowired
+    MetierAccount metierAccount;
 
 
     @Override
@@ -62,13 +66,16 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
     }
 
     @Override
-    public PeriodeBudgetaireDto saveperiodebudgetaire(PeriodeBudgetaireDto periodeBudgetaireDto) {
+    public PeriodeBudgetaireDto saveperiodebudgetaire(PeriodeBudgetaireDto periodeBudgetaireDto,String referencedirecteur) {
         PeriodeBudgetaire periodeBudgetaire=new PeriodeBudgetaire();
+        DirecteurAchat directeurAchat=metierAccount.findByDirecteurReferenceAndActiveIsTrue(referencedirecteur);
+        if (directeurAchat==null)throw new RuntimeException();
         BeanUtils.copyProperties(periodeBudgetaireDto,periodeBudgetaire);
-        periodeBudgetaire=daoPeriodeBudgetaire.save(periodeBudgetaire);
         periodeBudgetaire.setReference(RandomReference.randomString(10));
+        periodeBudgetaire.setDirecteurAchat(directeurAchat);
+        periodeBudgetaire=daoPeriodeBudgetaire.save(periodeBudgetaire);
         periodeBudgetaire.setStatut(ConstateBudget.NON_VALIDE);
-        metierLigneBudgetaire.saveAllLigneBudgetaire(periodeBudgetaire);
+       // metierLigneBudgetaire.saveAllLigneBudgetaire(periodeBudgetaire);
         BeanUtils.copyProperties(periodeBudgetaire,periodeBudgetaireDto);
         return periodeBudgetaireDto;
     }

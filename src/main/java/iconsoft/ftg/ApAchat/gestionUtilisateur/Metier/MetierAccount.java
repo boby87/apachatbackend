@@ -19,4 +19,6 @@ public interface MetierAccount {
     UtilisateurDto findByMatriculeOrLoginAndActiveIsTrue(String username);
     AcheteurMetier LocalfindByMatriculeOrLoginAndActiveIsTrue(String referenceAcheteurmetier);
     Utilisateur findByFonction(String role);
+    DirecteurAchat findByDirecteurReferenceAndActiveIsTrue(String reference);
+
 }
