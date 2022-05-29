@@ -86,7 +86,17 @@ public class ServiceAccount implements MetierAccount {
     public UtilisateurDto findByMatriculeOrLoginAndActiveIsTrue(String username) {
         Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(username);
         UtilisateurDto utilisateurDto = new UtilisateurDto();
+        List<RolesUserDto> rolesUserDto=new ArrayList<>();
         if (utilisateur!=null) BeanUtils.copyProperties(utilisateur, utilisateurDto);
+        if (utilisateur.getRolesUsers()!=null) {
+            utilisateur.getRolesUsers().forEach(r->{
+                RolesUserDto rolesUserDto1=new RolesUserDto();
+                BeanUtils.copyProperties(r, rolesUserDto1);
+                rolesUserDto.add(rolesUserDto1);
+
+            });
+        }
+        utilisateurDto.setRolesUsers(rolesUserDto);
         return utilisateurDto;
     }
 

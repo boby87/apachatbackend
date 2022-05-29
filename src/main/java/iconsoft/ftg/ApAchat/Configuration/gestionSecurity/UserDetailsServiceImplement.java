@@ -1,7 +1,6 @@
 package iconsoft.ftg.ApAchat.Configuration.gestionSecurity;
 
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +23,7 @@ public class UserDetailsServiceImplement implements UserDetailsService {
         UtilisateurDto utilisateurDto=metierAccount.findByMatriculeOrLoginAndActiveIsTrue(username);
         if (utilisateurDto==null)throw new RuntimeException();
         Collection<GrantedAuthority> authorities=new ArrayList<>();
-        utilisateurDto.getRolesUserdtos().forEach(r->{
+        utilisateurDto.getRolesUsers().forEach(r->{
             authorities.add(new SimpleGrantedAuthority(r.getRolesname()));
         });
         return new User(utilisateurDto.getMatricule(),utilisateurDto.getPassword(),authorities);
