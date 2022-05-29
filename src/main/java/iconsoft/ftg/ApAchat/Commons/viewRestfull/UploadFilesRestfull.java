@@ -13,7 +13,7 @@ public class UploadFilesRestfull {
     UploadFilesMetier uploadFilesMetier;
 
     @PostMapping("/xlsfile/{categorie}")
-    boolean updloadXLSFile(@RequestParam("file") MultipartFile multipartFile, @PathVariable String categorie){
+    boolean updloadXLSFile(@RequestParam("file") MultipartFile multipartFile, @PathVariable String categorie) {
         return uploadFilesMetier.uploadXLSFile(multipartFile, categorie);
     }
 }

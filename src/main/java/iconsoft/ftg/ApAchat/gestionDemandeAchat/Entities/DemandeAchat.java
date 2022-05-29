@@ -19,14 +19,15 @@ public class DemandeAchat {
     private boolean active=true;
     private double prixestimatif;
     @OneToMany(mappedBy = "demandeachat")
-    private List<LigneDemandeAchat> lignedemandeAchats;
+    private List<LigneDemandeAchat> lignedemandeachats;
     @ManyToOne
     @JoinColumn(name = "iddemandeachat",nullable = false)
     private AcheteurMetier acheteurmetier;
     @ManyToOne
     @JoinColumn(name = "iddirecteurachat")
     private DirecteurAchat directeurachat;
-
+    @OneToMany(mappedBy = "demandeachat")
+    private List<DevisFournisseur> devisfournisseurs;
 
 
     public Long getId() {
@@ -77,12 +78,12 @@ public class DemandeAchat {
         this.prixestimatif = prixestimatif;
     }
 
-    public List<LigneDemandeAchat> getLignedemandeAchats() {
-        return lignedemandeAchats;
+    public List<LigneDemandeAchat> getLignedemandeachats() {
+        return lignedemandeachats;
     }
 
-    public void setLignedemandeAchats(List<LigneDemandeAchat> lignedemandeAchats) {
-        this.lignedemandeAchats = lignedemandeAchats;
+    public void setLignedemandeachats(List<LigneDemandeAchat> lignedemandeAchats) {
+        this.lignedemandeachats = lignedemandeAchats;
     }
 
     public AcheteurMetier getAcheteurmetier() {
@@ -99,5 +100,13 @@ public class DemandeAchat {
 
     public void setDirecteurachat(DirecteurAchat directeurachat) {
         this.directeurachat = directeurachat;
+    }
+
+    public List<DevisFournisseur> getDevisfournisseurs() {
+        return devisfournisseurs;
+    }
+
+    public void setDevisfournisseurs(List<DevisFournisseur> devisfournisseurs) {
+        this.devisfournisseurs = devisfournisseurs;
     }
 }
