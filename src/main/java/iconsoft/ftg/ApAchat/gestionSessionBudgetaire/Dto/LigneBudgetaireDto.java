@@ -10,7 +10,7 @@ public class LigneBudgetaireDto {
     private double montantprovisionne;
     private double montantreel;
     private String statut;
-    private boolean active;
+    private boolean active=true;
     private String reference;
     private Date date;
 
@@ -26,6 +26,7 @@ public class LigneBudgetaireDto {
         this.montantreel = montantreel;
         this.statut = statut;
         this.reference = reference;
+        this.active=true;
     }
 
     public String getDénomination() {

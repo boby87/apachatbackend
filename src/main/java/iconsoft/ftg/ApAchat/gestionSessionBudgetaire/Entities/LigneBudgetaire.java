@@ -11,13 +11,13 @@ import java.util.Date;
 public class LigneBudgetaire implements Serializable {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dénomination;
+    private String denomination;
     private double montantinitial;
     private double montantconsomme;
     private double montantprovisionne;
     private double montantreel;
     private String statut;
-    private boolean active;
+    private boolean active=true;
     private String reference;
     private Date date=new Date();
     @JsonIgnore
@@ -29,7 +29,7 @@ public class LigneBudgetaire implements Serializable {
     }
 
     public LigneBudgetaire(String dénomination, double montantinitial, String statut, PeriodeBudgetaire periodebudgetaire) {
-        this.dénomination = dénomination;
+        this.denomination = dénomination;
         this.montantinitial = montantinitial;
         this.montantconsomme = 0.0;
         this.montantprovisionne = 0.0;
@@ -57,12 +57,12 @@ public class LigneBudgetaire implements Serializable {
         this.id = id;
     }
 
-    public String getDénomination() {
-        return dénomination;
+    public String getDenomination() {
+        return denomination;
     }
 
-    public void setDénomination(String dénomination) {
-        this.dénomination = dénomination;
+    public void setDenomination(String dénomination) {
+        this.denomination = dénomination;
     }
 
     public double getMontantinitial() {
