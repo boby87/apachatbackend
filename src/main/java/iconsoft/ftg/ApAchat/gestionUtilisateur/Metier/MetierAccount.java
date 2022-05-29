@@ -15,6 +15,7 @@ public interface MetierAccount {
     RolesUser saveRole(RolesUserDto rolesUserDto);
     Utilisateur addRoleToUser(String matricule,String rolename);
     List<UtilisateurDto> findAllUstilisateur();
+    List<Utilisateur> findAllUstilisateurreel();
     UtilisateurDto findByMatriculeOrLoginAndActiveIsTrue(String username);
     AcheteurMetier LocalfindByMatriculeOrLoginAndActiveIsTrue(String referenceAcheteurmetier);
     Utilisateur findByFonction(String role);

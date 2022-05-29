@@ -4,6 +4,7 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UtilisateurDto implements Serializable {
@@ -19,8 +20,7 @@ public class UtilisateurDto implements Serializable {
     private String statut;
     private String reference;
     private boolean active;
-    private List<RolesUser> rolesUsers;
-
+    private List<RolesUserDto> rolesUserdtos=new ArrayList<>();
 
 
     public String getMatricule() {
@@ -111,11 +111,11 @@ public class UtilisateurDto implements Serializable {
         this.active = active;
     }
 
-    public List<RolesUser> getRolesUsers() {
-        return rolesUsers;
+    public List<RolesUserDto> getRolesUserdtos() {
+        return rolesUserdtos;
     }
 
-    public void setRolesUsers(List<RolesUser> rolesUsers) {
-        this.rolesUsers = rolesUsers;
+    public void setRolesUserdtos(List<RolesUserDto> rolesUserdtos) {
+        this.rolesUserdtos = rolesUserdtos;
     }
 }

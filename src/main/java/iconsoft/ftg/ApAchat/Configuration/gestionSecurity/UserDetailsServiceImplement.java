@@ -24,7 +24,7 @@ public class UserDetailsServiceImplement implements UserDetailsService {
         UtilisateurDto utilisateurDto=metierAccount.findByMatriculeOrLoginAndActiveIsTrue(username);
         if (utilisateurDto==null)throw new RuntimeException();
         Collection<GrantedAuthority> authorities=new ArrayList<>();
-        utilisateurDto.getRolesUsers().forEach(r->{
+        utilisateurDto.getRolesUserdtos().forEach(r->{
             authorities.add(new SimpleGrantedAuthority(r.getRolesname()));
         });
         return new User(utilisateurDto.getMatricule(),utilisateurDto.getPassword(),authorities);

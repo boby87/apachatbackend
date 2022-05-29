@@ -7,7 +7,6 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RegisterDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RolesUserDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
@@ -59,16 +58,7 @@ public class ServiceAccount implements MetierAccount {
         if (ConstanteRoles.DIRECTEUR_ACHAT.equals(rolename) || ConstanteRoles.ACHETEUR_METIER.equals(rolename) || ConstanteRoles.RESPONSABLE_STOCK.equals(rolename)|| ConstanteRoles.ADMIN.equals(rolename)) {
             Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matricule);
             RolesUser rolesUser = daoRolesUser.findByRolesnameAndActiveIsTrue(rolename);
-            System.out.println("----------------------------------");
-            System.out.println("test utilisateur nom : " + utilisateur.getNom());
-            System.out.println("----------------------------------");
-            if (utilisateur.getRolesUsers() == null) {
-                utilisateur.setRolesUsers(new ArrayList<>());
-            }
             utilisateur.getRolesUsers().add(rolesUser);
-            System.out.println("----------------------------------");
-            System.out.println("test2 utilisateur prenom : " + utilisateur.getPrenom());
-            System.out.println("----------------------------------");
             return utilisateur;
         } else throw new RuntimeException();
 
@@ -83,6 +73,11 @@ public class ServiceAccount implements MetierAccount {
             utilisateurDtos.add(utilisateurDto);
         });
         return utilisateurDtos;
+    }
+
+    @Override
+    public List<Utilisateur> findAllUstilisateurreel() {
+        return daoUtilisateur.findAll();
     }
 
     @Override
@@ -115,7 +110,7 @@ public class ServiceAccount implements MetierAccount {
         registerDto.setFonction(ConstanteRoles.ADMIN);
         registerDto.setLogin("admin");
         registerDto.setTelephone("7777777");
-        registerDto.setMatricule("agtre");
+        registerDto.setMatricule("sophie");
         saveUser(registerDto);
     }
 }

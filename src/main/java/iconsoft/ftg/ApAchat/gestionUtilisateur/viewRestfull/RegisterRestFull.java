@@ -2,6 +2,7 @@ package iconsoft.ftg.ApAchat.gestionUtilisateur.viewRestfull;
 
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RegisterDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,8 @@ public class RegisterRestFull {
     @GetMapping("all")
     public List<UtilisateurDto> findAllUstilisateur() {
         return metierAccount.findAllUstilisateur();
+    } @GetMapping("alls")
+    public List<Utilisateur> findAllUstilisateurs() {
+        return metierAccount.findAllUstilisateurreel();
     }
 }
