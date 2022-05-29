@@ -9,5 +9,5 @@ public interface MetierFournisseur {
     FournisseursDto findByReferenceAndActiveIsTrue(String reference);
     List<FournisseursDto> findByActiveIsTrue();
     FournisseursDto saveFournisseur(FournisseursDto fournisseursDto);
-
+    Fournisseurs localfindByReferenceAndActiveIsTrue(String referencefournisseur);
 }

@@ -7,5 +7,5 @@ public enum DaStatut {
     REJETE_DEFINITIVEMENT,
     VALIDE,
     CLOTURE
-
 }
+

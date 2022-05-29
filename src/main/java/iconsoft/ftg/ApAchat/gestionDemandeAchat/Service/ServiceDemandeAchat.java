@@ -75,7 +75,7 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
                 ligneDemandeAchat.setReference(RandomReference.randomString(10));
                 ligneDemandeAchat = daoLigneCommandeAchat.save(ligneDemandeAchat);
 
-                demandeAchat.getLignedemandeAchats().add(ligneDemandeAchat);
+                demandeAchat.getLignedemandeachats().add(ligneDemandeAchat);
             }
         } catch (Exception e){
             e.printStackTrace();

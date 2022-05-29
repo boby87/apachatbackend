@@ -46,4 +46,9 @@ public class ServiceFournisseurs implements MetierFournisseur {
         BeanUtils.copyProperties(fournisseurs,fournisseursDto);
         return fournisseursDto;
     }
+
+    @Override
+    public Fournisseurs localfindByReferenceAndActiveIsTrue(String referencefournisseur) {
+        return daoFournisseur.findByReferenceAndActiveIsTrue(referencefournisseur);
+    }
 }

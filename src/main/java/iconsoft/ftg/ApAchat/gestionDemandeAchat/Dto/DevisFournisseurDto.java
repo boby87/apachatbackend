@@ -10,4 +10,60 @@ public class DevisFournisseurDto {
     private String reference;
     private String referencefornisseur;
     private DemandeAchatDto demandeachat;
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getImagedevis() {
+        return imagedevis;
+    }
+
+    public void setImagedevis(String imagedevis) {
+        this.imagedevis = imagedevis;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getReferencefornisseur() {
+        return referencefornisseur;
+    }
+
+    public void setReferencefornisseur(String referencefornisseur) {
+        this.referencefornisseur = referencefornisseur;
+    }
+
+    public DemandeAchatDto getDemandeachat() {
+        return demandeachat;
+    }
+
+    public void setDemandeachat(DemandeAchatDto demandeachat) {
+        this.demandeachat = demandeachat;
+    }
 }
