@@ -6,6 +6,8 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoUtilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RegisterDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RolesUserDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
@@ -90,6 +92,17 @@ public class ServiceAccount implements MetierAccount {
         if (utilisateur!=null) BeanUtils.copyProperties(utilisateur, utilisateurDto);
         return utilisateurDto;
     }
+
+    @Override
+    public AcheteurMetier LocalfindByMatriculeOrLoginAndActiveIsTrue(String matriculeAcheteurmetier) {
+        return (AcheteurMetier) daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matriculeAcheteurmetier);
+    }
+
+    @Override
+    public Utilisateur findByFonction(String fonction) {
+        return daoUtilisateur.findByFonction(fonction);
+    }
+
     @Bean
     void generateAdmin(){
         daoRolesUser.save(new RolesUser(ConstanteRoles.ADMIN));

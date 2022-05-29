@@ -14,7 +14,9 @@ public class DemandeAchatDto {
     private double prixestimatif;
     private List<LigneDemandeAchatDto> lignedemandeAchats;
     private AcheteurMetier acheteurmetier;
+    private String matriculeAcheteurmetier;
     private DirecteurAchat directeurachat;
+    private String matriculeDirecteurAchat;
 
     public String getStatut() {
         return statut;
@@ -78,5 +80,21 @@ public class DemandeAchatDto {
 
     public void setDirecteurachat(DirecteurAchat directeurachat) {
         this.directeurachat = directeurachat;
+    }
+
+    public String getMatriculeAcheteurmetier() {
+        return matriculeAcheteurmetier;
+    }
+
+    public void setMatriculeAcheteurmetier(String matriculeAcheteurmetier) {
+        this.matriculeAcheteurmetier = matriculeAcheteurmetier;
+    }
+
+    public String getMatriculeDirecteurAchat() {
+        return matriculeDirecteurAchat;
+    }
+
+    public void setMatriculeDirecteurAchat(String matriculeDirecteurAchat) {
+        this.matriculeDirecteurAchat = matriculeDirecteurAchat;
     }
 }

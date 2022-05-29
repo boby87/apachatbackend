@@ -4,6 +4,7 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class DemandeAchat {
     private boolean active=true;
     private double prixestimatif;
     @OneToMany(mappedBy = "demandeachat")
-    private List<LigneDemandeAchat> lignedemandeAchats;
+    private List<LigneDemandeAchat> lignedemandeAchats=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "iddemandeachat",nullable = false)
     private AcheteurMetier acheteurmetier;

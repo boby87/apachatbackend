@@ -58,7 +58,6 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
 
     @Override
     public PeriodeBudgetaire findByAnneeAndActiveIsTrue(String anneebudgetaire) {
-        PeriodeBudgetaireDto periodeBudgetaireDto=new PeriodeBudgetaireDto();
         return daoPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);
     }
 
@@ -77,5 +76,34 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
     @Override
     public PeriodeBudgetaire localSaveperiodebudgetaire(PeriodeBudgetaire periodeBudgetaire) {
         return daoPeriodeBudgetaire.save(periodeBudgetaire);
+    }
+
+    @Override
+    public String changeStatusPBudget(PeriodeBudgetaireDto periodeBudgetaireDto) {
+        if(!periodeBudgetaireDto.getStatut().equalsIgnoreCase(ConstateBudget.NON_VALIDE) ||
+            !periodeBudgetaireDto.getStatut().equalsIgnoreCase(ConstateBudget.VALIDE) ||
+            !periodeBudgetaireDto.getStatut().equalsIgnoreCase(ConstateBudget.CLOS))
+            return "Le statut renseigne est inexistant.";
+
+        PeriodeBudgetaire pbg = daoPeriodeBudgetaire.findByReferenceAndActiveIsTrue(periodeBudgetaireDto.getReference());
+        if(pbg==null) return "Aucune periode budgetaire correspondant a cette reference : "+ periodeBudgetaireDto.getReference() + " trouve";
+
+        if(pbg.getStatut().equalsIgnoreCase(ConstateBudget.NON_VALIDE) && periodeBudgetaireDto.getStatut().equalsIgnoreCase(ConstateBudget.VALIDE)){
+            pbg.setStatut(periodeBudgetaireDto.getStatut());
+            pbg.getLigneBudgetaires().forEach(l->{
+                l.setStatut(pbg.getStatut());
+                metierLigneBudgetaire.localSaveligne(l);
+            });
+            //Action a effectuer par la suite
+            return pbg.getStatut();
+        }  else if (pbg.getStatut().equalsIgnoreCase(ConstateBudget.VALIDE) && periodeBudgetaireDto.getStatut().equalsIgnoreCase(ConstateBudget.CLOS)){
+            pbg.setStatut(periodeBudgetaireDto.getStatut());
+            pbg.getLigneBudgetaires().forEach(l->{
+                l.setStatut(pbg.getStatut());
+                metierLigneBudgetaire.localSaveligne(l);
+            });
+            //Action a effectuer par la suite
+            return pbg.getStatut();
+        } else return "Impossible d'effectuer le changement.";
     }
 }

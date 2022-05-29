@@ -1,4 +1,4 @@
-package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.viewRestfull;
+package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.ViewRestfull;
 
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.LigneBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.LigneBudgetaire;
@@ -35,6 +35,11 @@ public class LigneBudgetaireRestfull {
     @PutMapping("update")
     boolean updatelignebudgetaire(@RequestBody LigneBudgetaireDto ligneBudgetaireDto){
         return metierLigneBudgetaire.updatelignebudgetaire(ligneBudgetaireDto);
+    }
+
+    @DeleteMapping("remove/{reference}")
+    boolean deleteLigneBudgetaire(@PathVariable String reference){
+        return metierLigneBudgetaire.deleteLigneBudgetaire(reference);
     }
 
 }

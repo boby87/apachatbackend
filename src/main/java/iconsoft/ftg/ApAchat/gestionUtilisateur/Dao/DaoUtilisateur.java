@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface DaoUtilisateur extends JpaRepository<Utilisateur,Long> {
     @Query("select u from Utilisateur u where u.active=true and (u.matricule=?1 or u.login=?1 or u.email=?1 or u.telephone=?1)")
     Utilisateur findByMatriculeOrLoginAndActiveIsTrue(String username);
+    Utilisateur findByFonction(String fonction);
 }

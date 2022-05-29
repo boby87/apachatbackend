@@ -38,4 +38,9 @@ public class SessionBudgetaireRestfull {
     PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto){
         return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto);
     }
+
+    @PatchMapping("update/status")
+    String updateStatusPeriodeBudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto){
+        return metierPeriodeBudgetaire.changeStatusPBudget(periodeBudgetaireDto);
+    }
 }

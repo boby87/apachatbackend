@@ -28,8 +28,8 @@ public class DevisfournisserRestfull {
     List<DevisFournisseurDto> findByActiveIsTrue() {
         return metierDevisfournisseur.findByActiveIsTrue();
     }
-    @GetMapping("save/{referencefournisseur}/{referencedemandeachat}")
-    DevisFournisseurDto uploadDevis(@RequestBody DevisFournisseurDto devisFournisseurDto,
+    @PostMapping("save/{referencefournisseur}/{referencedemandeachat}")
+    DevisFournisseurDto uploadDevis(@RequestBody List<DevisFournisseurDto> devisFournisseurDto,
                                     @PathVariable String referencefournisseur,
                                     @PathVariable String referencedemandeachat) {
         return metierDevisfournisseur.uploadDevis(devisFournisseurDto, referencefournisseur, referencedemandeachat);

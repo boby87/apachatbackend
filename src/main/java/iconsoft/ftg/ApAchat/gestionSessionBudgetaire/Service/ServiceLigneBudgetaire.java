@@ -47,7 +47,6 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
 
     @Override
     public LigneBudgetaire localSaveligne(LigneBudgetaire ligneBudgetaire) {
-        ligneBudgetaire.setReference(RandomReference.randomString(10));
         return daoLigneBudgetaire.save(ligneBudgetaire);
     }
 
@@ -68,6 +67,16 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
         saveligne(new LigneBudgetaireDto("Marketing", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
         saveligne(new LigneBudgetaireDto("Autres", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
         saveligne(new LigneBudgetaireDto("Loyer", ConstateBudget.NON_VALIDE,RandomReference.randomString(12))).setPeriodebudgetaire(periodeBudgetaire);
+    }
 
+    @Override
+    public boolean deleteLigneBudgetaire(String reference) {
+        LigneBudgetaire lb = this.findByReferenceAndActiveIsTrue(reference);
+        if(lb==null) return false;
+
+        lb.getPeriodeBudgetaire().getLigneBudgetaires().remove(lb);
+        lb.setPeriodebudgetaire(null);
+        daoLigneBudgetaire.delete(lb);
+        return true;
     }
 }

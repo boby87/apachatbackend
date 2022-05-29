@@ -25,7 +25,12 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
     }
 
     @Override
-    public DevisFournisseurDto uploadDevis(DevisFournisseurDto devisFournisseurDto, String referencefournisseur, String referencedemandeachat) {
+    public List<DevisFournisseurDto> findByDemandeAchatAndActiveIsTrue(String reference) {
+        return null;
+    }
+
+    @Override
+    public DevisFournisseurDto uploadDevis(List<DevisFournisseurDto> devisFournisseurDto, String referencefournisseur, String referencedemandeachat) {
         return null;
     }
 }

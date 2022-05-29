@@ -23,8 +23,12 @@ public class DemandeAchatRestfull {
     List<DemandeAchatDto> findByActiveIsTrue(){
         return metierDemandeAchat.findByActiveIsTrue();
     }
-    @GetMapping("save")
+    @PostMapping("save")
     DemandeAchatDto save(@RequestBody DemandeAchatDto demandeAchatDto){
         return metierDemandeAchat.save(demandeAchatDto);
+    }
+    @PostMapping("updatearticle")
+    private DemandeAchatDto updateArticleToDemandeAchat(@RequestBody DemandeAchatDto demandeAchatDto){
+        return metierDemandeAchat.saveArticles(demandeAchatDto);
     }
 }

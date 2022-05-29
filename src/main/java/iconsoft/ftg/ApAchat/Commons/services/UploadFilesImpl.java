@@ -35,8 +35,10 @@ public class UploadFilesImpl implements UploadFilesMetier {
         if(categorie.equalsIgnoreCase(CategorieUploadFile.BUDGET.name())) {
             System.out.println("Traitement du fichier excel : " + file.getName());
             this.loadXlsLigneBudget(file);
+            return true;
         } else if (categorie.equalsIgnoreCase(CategorieUploadFile.DA.name())){
             System.out.println("Traitement du fichier excel : " + file.getName());
+            return true;
         }
         return false;
     }

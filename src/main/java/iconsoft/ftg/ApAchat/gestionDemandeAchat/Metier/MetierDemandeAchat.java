@@ -9,5 +9,5 @@ public interface MetierDemandeAchat {
     DemandeAchatDto findByReferenceAndActiveIsTrue(String reference);
     List<DemandeAchatDto> findByActiveIsTrue();
     DemandeAchatDto save(DemandeAchatDto demandeAchatDto);
-
+    DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto);
 }

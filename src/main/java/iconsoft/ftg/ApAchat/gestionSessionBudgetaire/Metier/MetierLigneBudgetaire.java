@@ -14,4 +14,5 @@ public interface MetierLigneBudgetaire {
     LigneBudgetaire localSaveligne(LigneBudgetaire ligneBudgetaire);
     boolean updatelignebudgetaire(LigneBudgetaireDto ligneBudgetaireDto);
     void saveAllLigneBudgetaire(PeriodeBudgetaire periodeBudgetaire);
+    boolean deleteLigneBudgetaire(String reference);
 }

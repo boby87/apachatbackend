@@ -35,7 +35,7 @@ public class LigneBudgetaire {
         this.montantreel = 0.0;
         this.statut = statut;
         this.active = Boolean.TRUE;
-        this.reference = RandomReference.randomString(12);
+        this.reference = RandomReference.randomString(10);
         this.date = new Date();
         this.periodebudgetaire = periodebudgetaire;
     }

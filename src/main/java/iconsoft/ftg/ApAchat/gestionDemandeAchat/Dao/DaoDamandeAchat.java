@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface DaoDamandeAchat extends JpaRepository<DemandeAchat,Long> {
     DemandeAchat findByReferenceAndActiveIsTrue(String reference);
-    List<DemandeAchat> findByActiveIsTrue();
+    List<DemandeAchat> findAllByActiveIsTrue();
 
 }

@@ -9,6 +9,7 @@ public interface MetierDevisfournisseur {
     DevisFournisseurDto findByReferencedocAndActiveIsTrue(String referencefournisseur);
     DevisFournisseurDto findByReferenceAndActiveIsTrue(String reference);
     List<DevisFournisseurDto> findByActiveIsTrue();
-    DevisFournisseurDto uploadDevis(DevisFournisseurDto devisFournisseurDto,String referencefournisseur,String referencedemandeachat);
+    List<DevisFournisseurDto> findByDemandeAchatAndActiveIsTrue(String reference);
+    DevisFournisseurDto uploadDevis(List<DevisFournisseurDto> devisFournisseurDto,String referencefournisseur,String referencedemandeachat);
 
 }

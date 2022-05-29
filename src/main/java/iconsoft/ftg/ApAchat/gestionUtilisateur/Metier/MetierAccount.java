@@ -3,6 +3,8 @@ package iconsoft.ftg.ApAchat.gestionUtilisateur.Metier;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RegisterDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.RolesUserDto;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dto.UtilisateurDto;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.RolesUser;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 
@@ -14,5 +16,6 @@ public interface MetierAccount {
     Utilisateur addRoleToUser(String matricule,String rolename);
     List<UtilisateurDto> findAllUstilisateur();
     UtilisateurDto findByMatriculeOrLoginAndActiveIsTrue(String username);
-
+    AcheteurMetier LocalfindByMatriculeOrLoginAndActiveIsTrue(String referenceAcheteurmetier);
+    Utilisateur findByFonction(String role);
 }
