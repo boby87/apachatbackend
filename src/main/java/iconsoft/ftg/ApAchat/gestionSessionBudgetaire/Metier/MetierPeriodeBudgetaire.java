@@ -11,7 +11,7 @@ public interface MetierPeriodeBudgetaire {
     PeriodeBudgetaireDto findByReferenceAndActiveIsTrue(String reference);
     PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(String anneebudgetaire);
     PeriodeBudgetaire findByAnneeAndActiveIsTrue(String anneebudgetaire);
-    PeriodeBudgetaireDto saveperiodebudgetaire(PeriodeBudgetaireDto periodeBudgetaireDto);
+    PeriodeBudgetaireDto saveperiodebudgetaire(PeriodeBudgetaireDto periodeBudgetaireDto,String referencedirecteur);
     PeriodeBudgetaire localSaveperiodebudgetaire(PeriodeBudgetaire periodeBudgetaire);
     String changeStatusPBudget(PeriodeBudgetaireDto periodeBudgetaireDto);
 }

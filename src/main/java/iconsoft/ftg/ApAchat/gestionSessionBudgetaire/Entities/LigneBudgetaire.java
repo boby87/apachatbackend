@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class LigneBudgetaire {
+public class LigneBudgetaire implements Serializable {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dénomination;

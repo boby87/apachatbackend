@@ -34,9 +34,9 @@ public class SessionBudgetaireRestfull {
     PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(@PathVariable String anneebudgetaire){
         return metierPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);
     }
-    @PostMapping("save")
-    PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto){
-        return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto);
+    @PostMapping("save/{referencedirecteur}")
+    PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto,@PathVariable String referencedirecteur){
+        return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto,referencedirecteur);
     }
 
     @PatchMapping("update/status")
