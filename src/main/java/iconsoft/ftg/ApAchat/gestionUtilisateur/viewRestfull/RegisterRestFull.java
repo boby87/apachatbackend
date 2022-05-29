@@ -29,7 +29,8 @@ public class RegisterRestFull {
     @GetMapping("all")
     public List<UtilisateurDto> findAllUstilisateur() {
         return metierAccount.findAllUstilisateur();
-    } @GetMapping("alls")
+    } 
+    @GetMapping("alls")
     public List<Utilisateur> findAllUstilisateurs() {
         return metierAccount.findAllUstilisateurreel();
     }

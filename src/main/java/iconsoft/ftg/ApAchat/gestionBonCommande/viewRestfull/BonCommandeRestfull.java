@@ -14,7 +14,7 @@ public class BonCommandeRestfull {
     @Autowired
     MetierBonCommande metierBonCommande;
 
-@GetMapping("by/reference/{reference}")
+    @GetMapping("by/reference/{reference}")
     BonCommandeDto findByReferenceAndActiveIsTrue(@PathVariable String reference){
         return metierBonCommande.findByReferenceAndActiveIsTrue(reference);
     }
