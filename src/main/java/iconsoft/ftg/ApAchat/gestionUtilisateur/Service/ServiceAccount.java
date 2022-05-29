@@ -41,8 +41,9 @@ public class ServiceAccount implements MetierAccount {
         BeanUtils.copyProperties(registerDto, utilisateur);
         utilisateur.setReference(RandomReference.randomString(5));
         utilisateur = daoUtilisateur.save(utilisateur);
-        utilisateur = addRoleToUser(utilisateur.getMatricule(), registerDto.getFonction());
-        BeanUtils.copyProperties(utilisateur, registerDto);
+        addRoleToUser(utilisateur.getMatricule(), registerDto.getFonction());
+        utilisateur =daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateur.getMatricule());
+                BeanUtils.copyProperties(utilisateur, registerDto);
         return registerDto;
     }
 
@@ -59,6 +60,7 @@ public class ServiceAccount implements MetierAccount {
             Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matricule);
             RolesUser rolesUser = daoRolesUser.findByRolesnameAndActiveIsTrue(rolename);
             utilisateur.getRolesUsers().add(rolesUser);
+            daoUtilisateur.save(utilisateur);
             return utilisateur;
         } else throw new RuntimeException();
 

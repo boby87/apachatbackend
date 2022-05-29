@@ -3,7 +3,9 @@ package iconsoft.ftg.ApAchat.gestionUtilisateur.Entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,7 +25,7 @@ public class Utilisateur implements Serializable {
     private String reference;
     private boolean active=true;
     @ManyToMany(fetch = FetchType.EAGER)//a chaque fois que je charge un utilisateur il charge ses roles
-    private List<RolesUser> rolesUsers=new ArrayList<>();
+    private Set<RolesUser> rolesUsers=new HashSet<>();
 
     public Long getId() {
         return id;
@@ -121,11 +123,11 @@ public class Utilisateur implements Serializable {
         this.active = active;
     }
 
-    public List<RolesUser> getRolesUsers() {
+    public Set<RolesUser> getRolesUsers() {
         return rolesUsers;
     }
 
-    public void setRolesUsers(List<RolesUser> rolesUsers) {
+    public void setRolesUsers(Set<RolesUser> rolesUsers) {
         this.rolesUsers = rolesUsers;
     }
 }
