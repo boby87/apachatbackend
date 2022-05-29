@@ -46,6 +46,12 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
     }
 
     @Override
+    public LigneBudgetaire localSaveligne(LigneBudgetaire ligneBudgetaire) {
+        ligneBudgetaire.setReference(RandomReference.randomString(10));
+        return daoLigneBudgetaire.save(ligneBudgetaire);
+    }
+
+    @Override
     public boolean updatelignebudgetaire(LigneBudgetaireDto ligneBudgetaireDto) {
         LigneBudgetaire ligneBudgetaire=daoLigneBudgetaire.findByReferenceAndActiveIsTrue(ligneBudgetaireDto.getReference());
         BeanUtils.copyProperties(ligneBudgetaireDto,ligneBudgetaire);

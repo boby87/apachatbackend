@@ -1,6 +1,7 @@
 package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class LigneBudgetaire {
     private double montantconsomme;
     private double montantprovisionne;
     private double montantreel;
-    private double statut;
+    private String statut;
     private boolean active;
     private String reference;
     private Date date=new Date();
@@ -23,7 +24,21 @@ public class LigneBudgetaire {
     @JoinColumn(name = "idperiodebuggetaire")
     private PeriodeBudgetaire periodebudgetaire;
 
+    public LigneBudgetaire() {
+    }
 
+    public LigneBudgetaire(String dénomination, double montantinitial, String statut, PeriodeBudgetaire periodebudgetaire) {
+        this.dénomination = dénomination;
+        this.montantinitial = montantinitial;
+        this.montantconsomme = 0.0;
+        this.montantprovisionne = 0.0;
+        this.montantreel = 0.0;
+        this.statut = statut;
+        this.active = Boolean.TRUE;
+        this.reference = RandomReference.randomString(12);
+        this.date = new Date();
+        this.periodebudgetaire = periodebudgetaire;
+    }
 
     public PeriodeBudgetaire getPeriodebudgetaire() {
         return periodebudgetaire;
@@ -81,11 +96,11 @@ public class LigneBudgetaire {
         this.montantreel = montantreel;
     }
 
-    public double getStatut() {
+    public String getStatut() {
         return statut;
     }
 
-    public void setStatut(double statut) {
+    public void setStatut(String statut) {
         this.statut = statut;
     }
 

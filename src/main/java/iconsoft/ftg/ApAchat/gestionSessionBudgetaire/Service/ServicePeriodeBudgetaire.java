@@ -51,9 +51,15 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
     @Override
     public PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(String anneebudgetaire) {
         PeriodeBudgetaireDto periodeBudgetaireDto=new PeriodeBudgetaireDto();
-        PeriodeBudgetaire periodeBudgetaire= daoPeriodeBudgetaire.findByReferenceAndActiveIsTrue(anneebudgetaire);
+        PeriodeBudgetaire periodeBudgetaire= daoPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);
         BeanUtils.copyProperties(periodeBudgetaire,periodeBudgetaireDto);
         return periodeBudgetaireDto;
+    }
+
+    @Override
+    public PeriodeBudgetaire findByAnneeAndActiveIsTrue(String anneebudgetaire) {
+        PeriodeBudgetaireDto periodeBudgetaireDto=new PeriodeBudgetaireDto();
+        return daoPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);
     }
 
     @Override
@@ -66,5 +72,10 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
         metierLigneBudgetaire.saveAllLigneBudgetaire(periodeBudgetaire);
         BeanUtils.copyProperties(periodeBudgetaire,periodeBudgetaireDto);
         return periodeBudgetaireDto;
+    }
+
+    @Override
+    public PeriodeBudgetaire localSaveperiodebudgetaire(PeriodeBudgetaire periodeBudgetaire) {
+        return daoPeriodeBudgetaire.save(periodeBudgetaire);
     }
 }

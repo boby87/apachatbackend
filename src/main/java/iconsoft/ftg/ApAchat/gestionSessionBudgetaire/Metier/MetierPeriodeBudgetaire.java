@@ -10,6 +10,8 @@ public interface MetierPeriodeBudgetaire {
     List<PeriodeBudgetaireDto> findByActiveIsTrue();
     PeriodeBudgetaireDto findByReferenceAndActiveIsTrue(String reference);
     PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(String anneebudgetaire);
+    PeriodeBudgetaire findByAnneeAndActiveIsTrue(String anneebudgetaire);
     PeriodeBudgetaireDto saveperiodebudgetaire(PeriodeBudgetaireDto periodeBudgetaireDto);
+    PeriodeBudgetaire localSaveperiodebudgetaire(PeriodeBudgetaire periodeBudgetaire);
 
 }
