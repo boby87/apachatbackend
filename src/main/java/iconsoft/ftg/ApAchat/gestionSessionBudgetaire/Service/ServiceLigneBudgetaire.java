@@ -58,8 +58,12 @@ public class ServiceLigneBudgetaire implements MetierLigneBudgetaire {
     public boolean updatelignebudgetaire(LigneBudgetaireDto ligneBudgetaireDto) {
         LigneBudgetaire ligneBudgetaire=daoLigneBudgetaire.findByReferenceAndActiveIsTrue(ligneBudgetaireDto.getReference());
         BeanUtils.copyProperties(ligneBudgetaireDto,ligneBudgetaire);
+        if (ligneBudgetaire.getMontantinitial()>0){
+            ligneBudgetaire.setStatut(ConstateBudget.VALIDE);
+        }
         return true;
     }
+
     @Override
     public void saveAllLigneBudgetaire(String referenceperiode){
         PeriodeBudgetaire periodeBudgetaire=daoPeriodeBudgetaire.findByReferenceAndActiveIsTrue(referenceperiode);

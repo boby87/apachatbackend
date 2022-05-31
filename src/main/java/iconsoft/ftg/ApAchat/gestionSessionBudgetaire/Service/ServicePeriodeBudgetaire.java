@@ -53,6 +53,20 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
     }
 
     @Override
+    public PeriodeBudgetaireDto validerBudget(String referencebudget) {
+        PeriodeBudgetaire periodeBudgetaire=daoPeriodeBudgetaire.findByReferenceAndActiveIsFalse(referencebudget);
+        periodeBudgetaire.getLigneBudgetaires().forEach(p->{
+            p.setStatut(ConstateBudget.VALIDE);
+            p.setActive(true);
+        });
+        periodeBudgetaire.setStatut(ConstateBudget.VALIDE);
+        periodeBudgetaire.setActive(true);
+        PeriodeBudgetaireDto periodeBudgetaireDto=new PeriodeBudgetaireDto();
+        BeanUtils.copyProperties(periodeBudgetaire,periodeBudgetaireDto);
+        return periodeBudgetaireDto;
+    }
+
+    @Override
     public PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(String anneebudgetaire) {
         PeriodeBudgetaireDto periodeBudgetaireDto=new PeriodeBudgetaireDto();
         PeriodeBudgetaire periodeBudgetaire= daoPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);

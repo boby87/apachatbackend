@@ -8,5 +8,6 @@ import java.util.List;
 public interface DaoPeriodeBudgetaire extends JpaRepository<PeriodeBudgetaire,Long> {
     List<PeriodeBudgetaire> findByActiveIsTrue();
     PeriodeBudgetaire findByReferenceAndActiveIsTrue(String reference);
+    PeriodeBudgetaire findByReferenceAndActiveIsFalse(String reference);
     PeriodeBudgetaire findByAnneebugetaireAndActiveIsTrue(String anneebudgetaire);
 }

@@ -38,6 +38,10 @@ public class SessionBudgetaireRestfull {
     PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto,@PathVariable String referencedirecteur){
         return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto,referencedirecteur);
     }
+    @GetMapping("valider/{referenceperiode}")
+    PeriodeBudgetaireDto validerBudget(@PathVariable String referenceperiode){
+        return metierPeriodeBudgetaire.validerBudget(referenceperiode);
+    }
 
     @PatchMapping("update/status")
     String updateStatusPeriodeBudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto){
