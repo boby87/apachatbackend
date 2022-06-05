@@ -10,4 +10,5 @@ public interface MetierDemandeAchat {
     List<DemandeAchatDto> findByActiveIsTrue();
     DemandeAchatDto save(DemandeAchatDto demandeAchatDto);
     DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto);
+    DemandeAchatDto saveDemandeDtoWithLigneDemandeAchatDto(DemandeAchatDto demandeAchatDto);
 }

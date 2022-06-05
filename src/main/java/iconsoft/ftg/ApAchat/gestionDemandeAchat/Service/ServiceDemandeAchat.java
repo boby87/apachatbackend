@@ -61,6 +61,13 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
     }
 
     @Override
+    public DemandeAchatDto saveDemandeDtoWithLigneDemandeAchatDto(DemandeAchatDto demandeAchatDto) {
+        demandeAchatDto.setReference(save(demandeAchatDto).getReference());
+        demandeAchatDto = saveArticles(demandeAchatDto);
+        return demandeAchatDto;
+    }
+
+    @Override
     public DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto) {
         DemandeAchat demandeAchat = daoDamandeAchat.findByReferenceAndActiveIsTrue(demandeAchatDto.getReference());
         if(demandeAchat==null) return null;
