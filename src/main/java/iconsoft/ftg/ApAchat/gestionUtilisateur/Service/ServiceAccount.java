@@ -1,6 +1,7 @@
 package iconsoft.ftg.ApAchat.gestionUtilisateur.Service;
 
 import iconsoft.ftg.ApAchat.gestionUtilisateur.ConstanteRoles;
+import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoAcheteurMetier;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoAdmin;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoDirecteurAchat;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Dao.DaoRolesUser;
@@ -34,6 +35,8 @@ public class ServiceAccount implements MetierAccount {
     DaoDirecteurAchat daoDirecteurAchat;
     @Autowired
     DaoAdmin daoAdmin;
+    @Autowired
+    DaoAcheteurMetier daoAcheteurMetier;
 
     @Override
     public RegisterDto saveUser(RegisterDto registerDto) {
@@ -52,6 +55,10 @@ public class ServiceAccount implements MetierAccount {
             AdminUtilisateur adminUtilisateur=new AdminUtilisateur();
             BeanUtils.copyProperties(utilisateur,adminUtilisateur);
             utilisateur = daoAdmin.save(adminUtilisateur);
+        } else if (ConstanteRoles.ACHETEUR_METIER.equals(utilisateur.getFonction())) {
+            AcheteurMetier acheteurMetier = new AcheteurMetier();
+            BeanUtils.copyProperties(utilisateur, acheteurMetier);
+            utilisateur = daoAcheteurMetier.save(acheteurMetier);
         }
         addRoleToUser(utilisateur.getMatricule(), registerDto.getFonction());
         utilisateur =daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateur.getMatricule());
@@ -69,6 +76,9 @@ public class ServiceAccount implements MetierAccount {
     @Override
     public Utilisateur addRoleToUser(String matricule, String rolename) {
         if (ConstanteRoles.DIRECTEUR_ACHAT.equals(rolename) || ConstanteRoles.ACHETEUR_METIER.equals(rolename) || ConstanteRoles.RESPONSABLE_STOCK.equals(rolename)|| ConstanteRoles.ADMIN.equals(rolename)) {
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("User matricule : " + matricule);
+            System.out.println("--------------------------------------------------------------");
             Utilisateur utilisateur = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(matricule);
             RolesUser rolesUser = daoRolesUser.findByRolesnameAndActiveIsTrue(rolename);
             utilisateur.getRolesUsers().add(rolesUser);
