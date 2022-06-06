@@ -58,6 +58,7 @@ public class ServicePeriodeBudgetaire implements MetierPeriodeBudgetaire {
         periodeBudgetaire.getLigneBudgetaires().forEach(p->{
             p.setStatut(ConstateBudget.VALIDE);
             p.setActive(true);
+            metierLigneBudgetaire.localSaveligne(p);
         });
         periodeBudgetaire.setStatut(ConstateBudget.VALIDE);
         periodeBudgetaire.setActive(true);
