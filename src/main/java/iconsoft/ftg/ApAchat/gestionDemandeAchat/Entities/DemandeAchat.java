@@ -28,7 +28,7 @@ public class DemandeAchat {
     @JoinColumn(name = "iddirecteurachat")
     private DirecteurAchat directeurachat;
     @OneToMany(mappedBy = "demandeachat")
-    private List<DevisFournisseur> devisfournisseurs;
+    private List<DevisFournisseur> devisfournisseurs=new ArrayList<>();
 
 
     public Long getId() {

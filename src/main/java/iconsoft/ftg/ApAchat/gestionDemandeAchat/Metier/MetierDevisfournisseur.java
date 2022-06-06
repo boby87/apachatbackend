@@ -11,4 +11,5 @@ public interface MetierDevisfournisseur {
     List<DevisFournisseurDto> findByActiveIsTrue();
     List<DevisFournisseurDto> findByDemandeAchatAndActiveIsTrue(String reference);
     List<DevisFournisseurDto> uploadDevis(List<DevisFournisseurDto> devisFournisseurDto,String referencefournisseur,String referencedemandeachat);
+    DevisFournisseurDto chooseDevis(DevisFournisseurDto dto, String rDa);
 }

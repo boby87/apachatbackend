@@ -11,4 +11,5 @@ public interface MetierDemandeAchat {
     DemandeAchatDto save(DemandeAchatDto demandeAchatDto);
     DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto);
     DemandeAchatDto saveDemandeDtoWithLigneDemandeAchatDto(DemandeAchatDto demandeAchatDto);
+    boolean updateStatut(String reference, String statut);
 }

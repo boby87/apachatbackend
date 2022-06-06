@@ -68,6 +68,35 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
     }
 
     @Override
+    public boolean updateStatut(String reference, String statut) {
+        DemandeAchat da = daoDamandeAchat.findByReferenceAndActiveIsTrue(reference);
+        if(da==null) return false;
+        if(statut!=null && statut.equalsIgnoreCase("")) return false;
+
+        if(da.getStatut().equalsIgnoreCase(statut)){
+            return false;
+        } else {
+            assert statut != null;
+            if(statut.equalsIgnoreCase(DaStatut.NOUVELLE.name())){
+                da.setStatut(statut);
+                return true;
+            } else if(statut.equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())){
+                da.setStatut(statut);
+                return true;
+            } else if(statut.equalsIgnoreCase(DaStatut.REJETE_A_COMPLETER.name())){
+                da.setStatut(statut);
+                return true;
+            } else if(statut.equalsIgnoreCase(DaStatut.REJETE_DEFINITIVEMENT.name())){
+                da.setStatut(statut);
+                return true;
+            } else if(statut.equalsIgnoreCase(DaStatut.CLOTURE.name())){
+                da.setStatut(statut);
+                return true;
+            } else return false;
+        }
+    }
+
+    @Override
     public DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto) {
         DemandeAchat demandeAchat = daoDamandeAchat.findByReferenceAndActiveIsTrue(demandeAchatDto.getReference());
         if(demandeAchat==null) return null;

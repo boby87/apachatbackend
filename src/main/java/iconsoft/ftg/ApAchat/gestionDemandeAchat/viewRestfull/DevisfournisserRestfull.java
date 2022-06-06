@@ -39,4 +39,8 @@ public class DevisfournisserRestfull {
         return metierDevisfournisseur.uploadDevis(devisFournisseurDto, referencefournisseur, referencedemandeachat);
     }
 
+    @PostMapping("choosedevis/{referencedemandeachat}")
+    DevisFournisseurDto chooseDevis(@RequestBody DevisFournisseurDto dto, @PathVariable String referencedemandeachat){
+        return metierDevisfournisseur.chooseDevis(dto,referencedemandeachat);
+    }
 }

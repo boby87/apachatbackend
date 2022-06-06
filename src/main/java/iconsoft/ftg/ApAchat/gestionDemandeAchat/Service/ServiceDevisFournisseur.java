@@ -1,5 +1,7 @@
 package iconsoft.ftg.ApAchat.gestionDemandeAchat.Service;
 
+import iconsoft.ftg.ApAchat.gestionBonCommande.Entities.BonCommande;
+import iconsoft.ftg.ApAchat.gestionBonCommande.Metier.MetierBonCommande;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dao.DaoDamandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dao.DaoDevisFournisseur;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dto.DevisFournisseurDto;
@@ -14,6 +16,7 @@ import iconsoft.ftg.ApAchat.gestionFournisseurs.Metier.MetierFournisseur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,12 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
     DaoDevisFournisseur daoDevisFournisseur;
     @Autowired
     DaoDamandeAchat daoDamandeAchat;
+    final
+    MetierBonCommande metierBonCommande;
+
+    public ServiceDevisFournisseur(@Lazy MetierBonCommande metierBonCommande) {
+        this.metierBonCommande = metierBonCommande;
+    }
 
     @Override
     public DevisFournisseurDto findByReferencedocAndActiveIsTrue(String referencefournisseur) {
@@ -37,7 +46,8 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
             return null;
         } else {
             return convertDevisFournisseurToDeviFournisseurDto(df);
-        }    }
+        }
+    }
 
     @Override
     public DevisFournisseurDto findByReferenceAndActiveIsTrue(String reference) {
@@ -96,6 +106,32 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
         da.setStatut(DaStatut.EN_COURS_DE_VALIDATION.name());
 
         return devisFournisseurList;
+    }
+
+    @Override
+    public DevisFournisseurDto chooseDevis(DevisFournisseurDto dto, String rDa) {
+        final DevisFournisseur[] devisFournisseur = {daoDevisFournisseur.findByReferenceAndActiveIsTrue(dto.getReference())};
+        if(devisFournisseur[0] ==null) return null;
+        DemandeAchat da = daoDamandeAchat.findByReferenceAndActiveIsTrue(rDa);
+        if(da==null) return null;
+        if(!devisFournisseur[0].getDemandeachat().equals(da)) return null;
+
+        da.getDevisfournisseurs().forEach(de -> {
+            if(de.getReference().equalsIgnoreCase(devisFournisseur[0].getReference())){
+                devisFournisseur[0].setStatut(DevisStatut.VALIDE.name());
+                devisFournisseur[0] = daoDevisFournisseur.save(devisFournisseur[0]);
+            } else {
+                de.setStatut(DevisStatut.NON_VALIDE.name());
+                daoDevisFournisseur.save(de);
+            }
+        });
+        if(devisFournisseur[0].getStatut().equals(DevisStatut.VALIDE.name())){
+            da.setStatut(DaStatut.VALIDE.name());
+            BonCommande bo = new BonCommande();
+            bo.setDemandeachat(da);
+            metierBonCommande.saveLocal(bo);
+            return convertDevisFournisseurToDeviFournisseurDto(devisFournisseur[0]);
+        } else return null;
     }
 
     public DevisFournisseurDto convertDevisFournisseurToDeviFournisseurDto(DevisFournisseur devisFournisseur){
