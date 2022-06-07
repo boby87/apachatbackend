@@ -1,5 +1,6 @@
 package iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import iconsoft.ftg.ApAchat.gestionFournisseurs.Entities.Fournisseurs;
 
 import javax.persistence.*;
@@ -16,11 +17,13 @@ public class DevisFournisseur {
     private String imagedevis;
     @Column(nullable = false,unique = true)
     private String reference;
-    private String referencedoc;
+    private String referencedoc;//ici c est la reference du document
     @ManyToOne
-    @JoinColumn(name = "iddemandeachat",unique = true)
+    @JsonIgnore
+    @JoinColumn(name = "iddemandeachat")
     private DemandeAchat demandeachat;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idfournisseur")
     private Fournisseurs fournisseurs;
 

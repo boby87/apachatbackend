@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 public class LigneBudgetaireDto {
-    private String dénomination;
+    private String denomination;
     private double montantinitial;
     private double montantconsomme;
     private double montantprovisionne;
@@ -18,8 +18,8 @@ public class LigneBudgetaireDto {
     public LigneBudgetaireDto() {
     }
 
-    public LigneBudgetaireDto(String dénomination,  String statut, String reference) {
-        this.dénomination = dénomination;
+    public LigneBudgetaireDto(String denomination,  String statut, String reference) {
+        this.denomination = denomination;
         this.montantinitial = montantinitial;
         this.montantconsomme = montantconsomme;
         this.montantprovisionne = montantprovisionne;
@@ -29,12 +29,12 @@ public class LigneBudgetaireDto {
         this.active=true;
     }
 
-    public String getDénomination() {
-        return dénomination;
+    public String getDenomination() {
+        return denomination;
     }
 
-    public void setDénomination(String dénomination) {
-        this.dénomination = dénomination;
+    public void setDenomination(String denomination) {
+        this.denomination = denomination;
     }
 
     public double getMontantinitial() {

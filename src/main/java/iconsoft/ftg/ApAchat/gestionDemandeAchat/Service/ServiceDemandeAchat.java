@@ -8,10 +8,11 @@ import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DaStatut;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DemandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.LigneDemandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Metier.MetierDemandeAchat;
+import iconsoft.ftg.ApAchat.gestionDesArticles.Dao.DaoArticles;
+import iconsoft.ftg.ApAchat.gestionDesArticles.Metier.MetierArticle;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.ConstanteRoles;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
-import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.Utilisateur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,10 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
     MetierAccount metierAccount;
     @Autowired
     DaoLigneCommandeAchat daoLigneCommandeAchat;
+    @Autowired
+    DaoArticles daoArticles;
+    @Autowired
+    MetierArticle metierArticle;
 
     @Override
     public DemandeAchatDto findByReferenceAndActiveIsTrue(String reference) {
@@ -54,7 +59,7 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
         demandeAchat.setStatut(DaStatut.NOUVELLE.name());
         demandeAchat.setPrixestimatif(demandeAchatDto.getPrixestimatif());
         demandeAchat.setReference(RandomReference.randomString(10));
-
+        demandeAchat.setAcheteurmetier(am);
         demandeAchat.setDirecteurachat((DirecteurAchat) metierAccount.findByFonction(ConstanteRoles.DIRECTEUR_ACHAT));
         demandeAchat = daoDamandeAchat.save(demandeAchat);
         return convertDemandeAchatToDemandeAchatDto(demandeAchat);
@@ -100,14 +105,14 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
     public DemandeAchatDto saveArticles(DemandeAchatDto demandeAchatDto) {
         DemandeAchat demandeAchat = daoDamandeAchat.findByReferenceAndActiveIsTrue(demandeAchatDto.getReference());
         if(demandeAchat==null) return null;
-        if(demandeAchatDto.getLignedemandeAchats()==null) return null;
+        if(demandeAchatDto.getLignedemandeachats()==null) return null;
 
         try {
-            for (LigneDemandeAchatDto lda : demandeAchatDto.getLignedemandeAchats()) {
+            for (LigneDemandeAchatDto lda : demandeAchatDto.getLignedemandeachats()) {
                 LigneDemandeAchat ligneDemandeAchat = new LigneDemandeAchat();
                 ligneDemandeAchat.setDate(new Date());
                 ligneDemandeAchat.setDemandeachat(demandeAchat);
-                ligneDemandeAchat.setArticle(lda.getArticle());
+                ligneDemandeAchat.setArticle(daoArticles.findByDenominationAndActiveIsTrue(lda.getArticle().getDenomination()));
                 ligneDemandeAchat.setReference(RandomReference.randomString(10));
                 ligneDemandeAchat = daoLigneCommandeAchat.save(ligneDemandeAchat);
 

@@ -78,11 +78,11 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
     }
 
     @Override
-    public List<DevisFournisseurDto> uploadDevis(List<DevisFournisseurDto> devisFournisseurDto, String referencefournisseur, String referencedemandeachat) {
+    public List<DevisFournisseurDto> uploadDevis(List<DevisFournisseurDto> devisFournisseurDto,String referencedemandeachat) {
         DemandeAchat da = daoDamandeAchat.findByReferenceAndActiveIsTrue(referencedemandeachat);
         if(da==null) return null;
-        Fournisseurs fo = metierFournisseur.localfindByReferenceAndActiveIsTrue(referencefournisseur);
-        if(fo==null) return null;
+      /*  Fournisseurs fo = metierFournisseur.localfindByReferenceAndActiveIsTrue(referencefournisseur);
+        if(fo==null) return null;*/
 
         List<DevisFournisseurDto> devisFournisseurList = new ArrayList<>();
 
@@ -91,12 +91,12 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
             devisFournisseur.setDate(new Date());
             devisFournisseur.setImagedevis(dto.getImagedevis());
             devisFournisseur.setReference(RandomReference.randomString(10));
+            devisFournisseur = daoDevisFournisseur.save(devisFournisseur);
             devisFournisseur.setDemandeachat(da);
-            devisFournisseur.setFournisseurs(fo);
+          //  devisFournisseur.setFournisseurs(fo);
             devisFournisseur.setStatut(DevisStatut.VALIDE.name());
 
-            devisFournisseur = daoDevisFournisseur.save(devisFournisseur);
-            fo.getDevisfournisseurs().add(devisFournisseur);
+           // fo.getDevisfournisseurs().add(devisFournisseur);
             da.getDevisfournisseurs().add(devisFournisseur);
 
             devisFournisseurList.add(
@@ -137,7 +137,7 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
     public DevisFournisseurDto convertDevisFournisseurToDeviFournisseurDto(DevisFournisseur devisFournisseur){
         DevisFournisseurDto dto = new DevisFournisseurDto();
         BeanUtils.copyProperties(devisFournisseur, dto);
-        dto.setReferencefornisseur(devisFournisseur.getFournisseurs().getReference());
+       // dto.setReferencefornisseur(devisFournisseur.getFournisseurs().getReference());
         return dto;
     }
 }

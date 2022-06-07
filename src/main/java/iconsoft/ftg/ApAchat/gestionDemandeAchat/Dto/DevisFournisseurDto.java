@@ -10,6 +10,7 @@ public class DevisFournisseurDto {
     private String reference;
     private String referencefornisseur;
     private DemandeAchatDto demandeachat;
+    private String referencedemandeachat;
 
     public String getStatut() {
         return statut;
@@ -65,5 +66,13 @@ public class DevisFournisseurDto {
 
     public void setDemandeachat(DemandeAchatDto demandeachat) {
         this.demandeachat = demandeachat;
+    }
+
+    public String getReferencedemandeachat() {
+        return referencedemandeachat;
+    }
+
+    public void setReferencedemandeachat(String referencedemandeachat) {
+        this.referencedemandeachat = referencedemandeachat;
     }
 }

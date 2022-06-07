@@ -32,11 +32,10 @@ public class DevisfournisserRestfull {
     List<DevisFournisseurDto> findAllByDemandeAchatAndActiveIsTrue(@PathVariable String reference) {
         return metierDevisfournisseur.findByDemandeAchatAndActiveIsTrue(reference);
     }
-    @PostMapping("save/{referencefournisseur}/{referencedemandeachat}")
+    @PostMapping("save/{referencedemandeachat}")
     List<DevisFournisseurDto> uploadDevis(@RequestBody List<DevisFournisseurDto> devisFournisseurDto,
-                                    @PathVariable String referencefournisseur,
                                     @PathVariable String referencedemandeachat) {
-        return metierDevisfournisseur.uploadDevis(devisFournisseurDto, referencefournisseur, referencedemandeachat);
+        return metierDevisfournisseur.uploadDevis(devisFournisseurDto, referencedemandeachat);
     }
 
     @PostMapping("choosedevis/{referencedemandeachat}")

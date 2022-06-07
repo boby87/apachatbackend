@@ -17,34 +17,37 @@ public class SessionBudgetaireRestfull {
 
 
     @GetMapping("all")
-    List<PeriodeBudgetaire> findall(){
+    List<PeriodeBudgetaire> findall() {
         return metierPeriodeBudgetaire.findall();
     }
+
     @GetMapping("allactive")
-    List<PeriodeBudgetaireDto> findByActiveIsTrue(){
+    List<PeriodeBudgetaireDto> findByActiveIsTrue() {
         return metierPeriodeBudgetaire.findByActiveIsTrue();
     }
 
     @GetMapping("by/reference/{reference}")
-    PeriodeBudgetaireDto findByReferenceAndActiveIsTrue(@PathVariable String reference){
+    PeriodeBudgetaireDto findByReferenceAndActiveIsTrue(@PathVariable String reference) {
         return metierPeriodeBudgetaire.findByReferenceAndActiveIsTrue(reference);
     }
 
     @GetMapping("by/anneebudgetaire/{anneebudgetaire}")
-    PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(@PathVariable String anneebudgetaire){
+    PeriodeBudgetaireDto findByAnneebugetaireAndActiveIsTrue(@PathVariable String anneebudgetaire) {
         return metierPeriodeBudgetaire.findByAnneebugetaireAndActiveIsTrue(anneebudgetaire);
     }
+
     @PostMapping("save/{referencedirecteur}")
-    PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto,@PathVariable String referencedirecteur){
-        return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto,referencedirecteur);
+    PeriodeBudgetaireDto saveperiodebudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto, @PathVariable String referencedirecteur) {
+        return metierPeriodeBudgetaire.saveperiodebudgetaire(periodeBudgetaireDto, referencedirecteur);
     }
+
     @GetMapping("valider/{referenceperiode}")
-    PeriodeBudgetaireDto validerBudget(@PathVariable String referenceperiode){
+    PeriodeBudgetaireDto validerBudget(@PathVariable String referenceperiode) {
         return metierPeriodeBudgetaire.validerBudget(referenceperiode);
     }
 
     @PatchMapping("update/status")
-    String updateStatusPeriodeBudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto){
+    String updateStatusPeriodeBudgetaire(@RequestBody PeriodeBudgetaireDto periodeBudgetaireDto) {
         return metierPeriodeBudgetaire.changeStatusPBudget(periodeBudgetaireDto);
     }
 }

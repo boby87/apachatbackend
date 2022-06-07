@@ -1,5 +1,6 @@
 package iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.AcheteurMetier;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.Entities.DirecteurAchat;
 
@@ -20,13 +21,17 @@ public class DemandeAchat {
     private boolean active=true;
     private double prixestimatif;
     @OneToMany(mappedBy = "demandeachat")
+    @JsonIgnore
     private List<LigneDemandeAchat> lignedemandeachats = new ArrayList<>();
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "iddemandeachat",nullable = false)
     private AcheteurMetier acheteurmetier;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "iddirecteurachat")
     private DirecteurAchat directeurachat;
+    @JsonIgnore
     @OneToMany(mappedBy = "demandeachat")
     private List<DevisFournisseur> devisfournisseurs=new ArrayList<>();
 

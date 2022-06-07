@@ -12,7 +12,7 @@ public class DemandeAchatDto {
     private String reference;
     private boolean active=true;
     private double prixestimatif;
-    private List<LigneDemandeAchatDto> lignedemandeAchats;
+    private List<LigneDemandeAchatDto> lignedemandeachats;
     private AcheteurMetier acheteurmetier;
     private String matriculeAcheteurmetier;
     private DirecteurAchat directeurachat;
@@ -58,12 +58,12 @@ public class DemandeAchatDto {
         this.prixestimatif = prixestimatif;
     }
 
-    public List<LigneDemandeAchatDto> getLignedemandeAchats() {
-        return lignedemandeAchats;
+    public List<LigneDemandeAchatDto> getLignedemandeachats() {
+        return lignedemandeachats;
     }
 
-    public void setLignedemandeAchats(List<LigneDemandeAchatDto> lignedemandeAchats) {
-        this.lignedemandeAchats = lignedemandeAchats;
+    public void setLignedemandeachats(List<LigneDemandeAchatDto> lignedemandeachats) {
+        this.lignedemandeachats = lignedemandeachats;
     }
 
     public AcheteurMetier getAcheteurmetier() {

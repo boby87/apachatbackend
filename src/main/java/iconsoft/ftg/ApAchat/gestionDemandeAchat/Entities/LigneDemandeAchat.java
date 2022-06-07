@@ -1,5 +1,6 @@
 package iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import iconsoft.ftg.ApAchat.gestionDesArticles.Entities.Article;
 
 import javax.persistence.*;
@@ -15,9 +16,11 @@ public class LigneDemandeAchat {
     @Column(nullable = false,unique = true)
     private String reference;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "iddemandeachat")
     private DemandeAchat demandeachat;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "idarticle")
     private Article article;
 
