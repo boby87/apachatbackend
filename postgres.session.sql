@@ -1,1 +1,1 @@
-SELECT * FROM utilisateur;
+UPDATE article SET date = '2022-06-07 05:15:00' WHERE id = 3;

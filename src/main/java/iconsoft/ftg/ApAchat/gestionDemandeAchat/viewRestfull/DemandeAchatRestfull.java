@@ -32,6 +32,11 @@ public class DemandeAchatRestfull {
         return metierDemandeAchat.saveArticles(demandeAchatDto);
     }
 
+    @PostMapping("saveWithLigne")
+    private DemandeAchatDto saveDemandeAchatAndArticle(@RequestBody DemandeAchatDto demandeAchatDto){
+        return metierDemandeAchat.saveDemandeDtoWithLigneDemandeAchatDto(demandeAchatDto);
+    }
+
     @GetMapping("/updatestatut/{statut}/{reference}")
     private boolean updateStatutDa(@PathVariable String statut, @PathVariable String reference){
         return metierDemandeAchat.updateStatut(reference, statut);

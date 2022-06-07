@@ -40,6 +40,7 @@ public class ServiceArticle implements MetierArticle {
     @Override
     public ArticleDto saveArticle(ArticleDto articleDto) {
         Article article=new Article();
+        articleDto.setActive(true);
         BeanUtils.copyProperties(articleDto,article);
         article=daoArticles.save(article);
         BeanUtils.copyProperties(article,articleDto);
