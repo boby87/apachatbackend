@@ -21,7 +21,7 @@ public class DemandeAchat {
     private boolean active=true;
     private double prixestimatif;
     @OneToMany(mappedBy = "demandeachat")
-    @JsonIgnore
+    // @JsonIgnore
     private List<LigneDemandeAchat> lignedemandeachats = new ArrayList<>();
     @ManyToOne
     @JsonIgnore

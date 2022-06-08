@@ -136,7 +136,14 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
         List<DemandeAchatDto> dtos = new ArrayList<>();
         demandeAchats.forEach(d->{
             DemandeAchatDto dto = new DemandeAchatDto();
+            List<LigneDemandeAchatDto> lda = new ArrayList<LigneDemandeAchatDto>();
             BeanUtils.copyProperties(d, dto);
+            d.getLignedemandeachats().forEach(l->{
+                LigneDemandeAchatDto ld = new LigneDemandeAchatDto();
+                BeanUtils.copyProperties(l, ld);
+                lda.add(ld);
+            });
+            dto.setLignedemandeachats(lda);
             dtos.add(dto);
         });
         return dtos;
