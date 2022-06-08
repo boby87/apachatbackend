@@ -4,15 +4,17 @@ import iconsoft.ftg.ApAchat.gestionDesArticles.Entities.Article;
 
 import java.util.Date;
 
-public class LigneDemandeAchatDto {
+public class LigneBonCommandeDto {
     private double pu;
-    private double pt;
     private int quantite;
+    private double pt;
     private Date date;
-
-    private DemandeAchatDto demandeachat;
-
+    private String referencedemandeachat;
     private Article article;
+
+    public double getPu() {
+        return pu;
+    }
 
     public int getQuantite() {
         return quantite;
@@ -20,10 +22,6 @@ public class LigneDemandeAchatDto {
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
-    }
-
-    public double getPu() {
-        return pu;
     }
 
     public void setPu(double pu) {
@@ -46,12 +44,12 @@ public class LigneDemandeAchatDto {
         this.date = date;
     }
 
-    public DemandeAchatDto getDemandeachat() {
-        return demandeachat;
+    public String getReferencedemandeachat() {
+        return referencedemandeachat;
     }
 
-    public void setDemandeachat(DemandeAchatDto demandeachat) {
-        this.demandeachat = demandeachat;
+    public void setReferencedemandeachat(String referencedemandeachat) {
+        this.referencedemandeachat = referencedemandeachat;
     }
 
     public Article getArticle() {

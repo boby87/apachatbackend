@@ -134,6 +134,19 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
         } else return null;
     }
 
+    @Override
+    public DevisFournisseurDto findDevisValideByReferenceDA(String reference) {
+        final DevisFournisseur[] df = new DevisFournisseur[1];
+        daoDevisFournisseur.findAllByReferenceDemandeAchatAndIsActive(reference).forEach(devisFournisseur -> {
+            if(devisFournisseur.getStatut().equalsIgnoreCase(DevisStatut.VALIDE.name())){
+                df[0] = devisFournisseur;
+            }
+        });
+        if(df[0]!=null){
+            return convertDevisFournisseurToDeviFournisseurDto(df[0]);
+        } else return null;
+    }
+
     public DevisFournisseurDto convertDevisFournisseurToDeviFournisseurDto(DevisFournisseur devisFournisseur){
         DevisFournisseurDto dto = new DevisFournisseurDto();
         BeanUtils.copyProperties(devisFournisseur, dto);

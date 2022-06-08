@@ -10,4 +10,8 @@ public interface MetierBonCommande {
     List<BonCommandeDto> findByActiveIsTrue();
     BonCommandeDto save(BonCommandeDto bonCommandeDto);
     BonCommande saveLocal(BonCommande bonCommande);
+
+    BonCommande updateArticle(BonCommandeDto bcDto);
+    String updateStatut(BonCommandeDto bcDto);
+    BonCommande getByReferenceDA(String reference);
 }

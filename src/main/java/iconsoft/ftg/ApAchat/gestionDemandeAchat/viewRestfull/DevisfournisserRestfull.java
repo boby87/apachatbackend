@@ -42,4 +42,9 @@ public class DevisfournisserRestfull {
     DevisFournisseurDto chooseDevis(@RequestBody DevisFournisseurDto dto, @PathVariable String referencedemandeachat){
         return metierDevisfournisseur.chooseDevis(dto,referencedemandeachat);
     }
+
+    @GetMapping("getchoosedevisbyreferencedemandeachat/{reference}")
+    DevisFournisseurDto getDevisValideByReferenceDA(@PathVariable String reference){
+        return metierDevisfournisseur.findDevisValideByReferenceDA(reference);
+    }
 }

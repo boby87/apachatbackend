@@ -12,6 +12,7 @@ public class LigneDemandeAchat {
     private Long id;
     private double pu;
     private double pt;
+    private int quantite;
     private Date date;
     @Column(nullable = false,unique = true)
     private String reference;
@@ -23,6 +24,14 @@ public class LigneDemandeAchat {
     @JsonIgnore
     @JoinColumn(name = "idarticle")
     private Article article;
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
 
     public Long getId() {
         return id;
