@@ -74,6 +74,7 @@ public class ServiceBonCommande implements MetierBonCommande {
                 }
             }
             bc.setMontant(som[0]);
+            bc.setStatut(BonCmdStatut.ENCOURS_VALIDATION.name());
             return bc;
         }
         return null;
