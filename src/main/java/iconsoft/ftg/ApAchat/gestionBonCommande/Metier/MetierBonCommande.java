@@ -14,4 +14,6 @@ public interface MetierBonCommande {
     BonCommande updateArticle(BonCommandeDto bcDto);
     String updateStatut(BonCommandeDto bcDto);
     BonCommande getByReferenceDA(String reference);
+
+    List<BonCommandeDto> convertListBonCommandeToListBonCommandeDto(List<BonCommande> bonCommandes);
 }

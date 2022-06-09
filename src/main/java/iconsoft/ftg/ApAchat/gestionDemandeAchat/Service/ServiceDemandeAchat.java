@@ -110,6 +110,7 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
         try {
             for (LigneDemandeAchatDto lda : demandeAchatDto.getLignedemandeachats()) {
                 LigneDemandeAchat ligneDemandeAchat = new LigneDemandeAchat();
+                BeanUtils.copyProperties(lda, ligneDemandeAchat);
                 ligneDemandeAchat.setDate(new Date());
                 ligneDemandeAchat.setDemandeachat(demandeAchat);
                 ligneDemandeAchat.setArticle(daoArticles.findByDenominationAndActiveIsTrue(lda.getArticle().getDenomination()));
