@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface MetierAccount {
     RegisterDto saveUser(RegisterDto registerDto);
+    UtilisateurDto updateUser(UtilisateurDto utilisateurDto);
+    Utilisateur updateProcess(Utilisateur utilisateur, UtilisateurDto utilisateurDto);
     RolesUser saveRole(RolesUserDto rolesUserDto);
     Utilisateur addRoleToUser(String matricule,String rolename);
     List<UtilisateurDto> findAllUstilisateur();
@@ -20,5 +22,6 @@ public interface MetierAccount {
     AcheteurMetier LocalfindByMatriculeOrLoginAndActiveIsTrue(String referenceAcheteurmetier);
     Utilisateur findByFonction(String role);
     DirecteurAchat findByDirecteurReferenceAndActiveIsTrue(String reference);
+    UtilisateurDto permuteUtilisateurToUtilisateurDto(Utilisateur utilisateur);
 
 }

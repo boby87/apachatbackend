@@ -67,6 +67,47 @@ public class ServiceAccount implements MetierAccount {
     }
 
     @Override
+    public UtilisateurDto updateUser(UtilisateurDto utilisateurDto) {
+        if (utilisateurDto.getFonction().equals(ConstanteRoles.DIRECTEUR_ACHAT)) {
+            DirecteurAchat directeurAchat = daoDirecteurAchat.findByReferenceAndActiveIsTrue(utilisateurDto.getReference());
+            BeanUtils.copyProperties(this.updateProcess(directeurAchat, utilisateurDto), directeurAchat);
+            return this.permuteUtilisateurToUtilisateurDto(directeurAchat);
+        } else if (utilisateurDto.getFonction().equals(ConstanteRoles.ADMIN)) {
+            AdminUtilisateur adminUtilisateur = daoAdmin.findByReferenceAndActiveIsTrue(utilisateurDto.getReference());
+            BeanUtils.copyProperties(this.updateProcess(adminUtilisateur, utilisateurDto), adminUtilisateur);
+            return this.permuteUtilisateurToUtilisateurDto(adminUtilisateur);
+        } else if (utilisateurDto.getFonction().equals(ConstanteRoles.ACHETEUR_METIER)) {
+            AcheteurMetier acheteurMetier = daoAcheteurMetier.findByReferenceAndActiveIsTrue(utilisateurDto.getReference());
+            BeanUtils.copyProperties(this.updateProcess(acheteurMetier, utilisateurDto), acheteurMetier);
+            return this.permuteUtilisateurToUtilisateurDto(acheteurMetier);
+        }
+        return null;
+    }
+
+    @Override
+    public Utilisateur updateProcess(Utilisateur utilisateur, UtilisateurDto utilisateurDto) {
+        if (!utilisateurDto.getEmail().equals("") && !utilisateurDto.getEmail().equals(utilisateur.getEmail())) {
+            Utilisateur userTest = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateurDto.getEmail());
+            if (userTest != null) throw new RuntimeException();
+            else utilisateur.setEmail(utilisateurDto.getEmail());
+        }
+        if (!utilisateurDto.getLogin().equals("") && !utilisateurDto.getLogin().equals(utilisateur.getLogin())) {
+            Utilisateur userTest = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateurDto.getLogin());
+            if (userTest != null) throw new RuntimeException();
+            else utilisateur.setLogin(utilisateurDto.getLogin());
+        }
+        if (!utilisateurDto.getTelephone().equals("") && !utilisateurDto.getTelephone().equals(utilisateur.getTelephone())) {
+            Utilisateur userTest = daoUtilisateur.findByMatriculeOrLoginAndActiveIsTrue(utilisateurDto.getTelephone());
+            if (userTest != null) throw new RuntimeException();
+            else utilisateur.setTelephone(utilisateurDto.getTelephone());
+        }
+
+        utilisateur.setNom(utilisateurDto.getNom());
+        utilisateur.setPrenom(utilisateurDto.getPrenom());
+        return utilisateur;
+    }
+
+    @Override
     public RolesUser saveRole(RolesUserDto rolesUserDto) {
         RolesUser rolesUser = new RolesUser();
         BeanUtils.copyProperties(rolesUserDto, rolesUser);
@@ -154,5 +195,12 @@ public class ServiceAccount implements MetierAccount {
             saveUser(registerDto);
         }
 
+    }
+
+    @Override
+    public UtilisateurDto permuteUtilisateurToUtilisateurDto(Utilisateur utilisateur) {
+        UtilisateurDto utilisateurDto=new UtilisateurDto();
+        BeanUtils.copyProperties(utilisateur,utilisateurDto);
+        return utilisateurDto;
     }
 }
