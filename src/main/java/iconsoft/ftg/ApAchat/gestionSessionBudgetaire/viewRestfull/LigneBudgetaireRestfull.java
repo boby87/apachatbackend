@@ -1,4 +1,4 @@
-package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.viewRestfull;
+package iconsoft.ftg.ApAchat.gestionSessionBudgetaire.ViewRestfull;
 
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Dto.LigneBudgetaireDto;
 import iconsoft.ftg.ApAchat.gestionSessionBudgetaire.Entities.LigneBudgetaire;

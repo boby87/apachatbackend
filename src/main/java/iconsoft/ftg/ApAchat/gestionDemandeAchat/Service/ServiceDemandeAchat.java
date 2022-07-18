@@ -1,5 +1,7 @@
 package iconsoft.ftg.ApAchat.gestionDemandeAchat.Service;
 
+import iconsoft.ftg.ApAchat.gestionBonCommande.Entities.BonCommande;
+import iconsoft.ftg.ApAchat.gestionBonCommande.Metier.MetierBonCommande;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dao.DaoDamandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dao.DaoLigneCommandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Dto.DemandeAchatDto;
@@ -17,6 +19,7 @@ import iconsoft.ftg.ApAchat.gestionUtilisateur.Metier.MetierAccount;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +40,12 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
     DaoArticles daoArticles;
     @Autowired
     MetierArticle metierArticle;
+    final
+    MetierBonCommande metierBonCommande;
+    
+    public ServiceDemandeAchat(@Lazy MetierBonCommande metierBonCommande) {
+		this.metierBonCommande = metierBonCommande;
+    }
 
     @Override
     public DemandeAchatDto findByReferenceAndActiveIsTrue(String reference) {
@@ -81,23 +90,45 @@ public class ServiceDemandeAchat implements MetierDemandeAchat {
         if(da.getStatut().equalsIgnoreCase(statut)){
             return false;
         } else {
-            assert statut != null;
-            if(statut.equalsIgnoreCase(DaStatut.NOUVELLE.name())){
-                da.setStatut(statut);
-                return true;
-            } else if(statut.equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())){
-                da.setStatut(statut);
-                return true;
-            } else if(statut.equalsIgnoreCase(DaStatut.REJETE_A_COMPLETER.name())){
-                da.setStatut(statut);
-                return true;
-            } else if(statut.equalsIgnoreCase(DaStatut.REJETE_DEFINITIVEMENT.name())){
-                da.setStatut(statut);
-                return true;
-            } else if(statut.equalsIgnoreCase(DaStatut.CLOTURE.name())){
-                da.setStatut(statut);
-                return true;
-            } else return false;
+        	if(statut.equalsIgnoreCase(DaStatut.NOUVELLE.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.NOUVELLE.name())) {
+        			return true;
+        		}
+        	} else if (statut.equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.NOUVELLE.name()) 
+        				|| da.getStatut().equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())) {
+        			da.setStatut(DaStatut.EN_COURS_DE_VALIDATION.name());
+        			return true;
+        		}
+        	} else if (statut.equalsIgnoreCase(DaStatut.VALIDE.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())
+        				|| da.getStatut().equalsIgnoreCase(DaStatut.REJETE_A_COMPLETER.name())) {
+        			da.setStatut(DaStatut.VALIDE.name());
+
+                    BonCommande bo = new BonCommande();
+                    bo.setDemandeachat(da);
+                    metierBonCommande.saveLocal(bo);
+                    
+        			return true;
+        		}
+        	} else if (statut.equalsIgnoreCase(DaStatut.REJETE_A_COMPLETER.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())) {
+        			da.setStatut(DaStatut.REJETE_A_COMPLETER.name());
+        			return true;
+        		}
+        	} else if (statut.equalsIgnoreCase(DaStatut.REJETE_DEFINITIVEMENT.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.EN_COURS_DE_VALIDATION.name())
+        				|| da.getStatut().equalsIgnoreCase(DaStatut.REJETE_A_COMPLETER.name())) {
+        			da.setStatut(DaStatut.REJETE_DEFINITIVEMENT.name());
+        			return true;
+        		}
+        	} else if (statut.equalsIgnoreCase(DaStatut.CLOTURE.name())) {
+        		if(da.getStatut().equalsIgnoreCase(DaStatut.VALIDE.name())) {
+        			da.setStatut(DaStatut.CLOTURE.name());
+        			return true;
+        		}
+        	}
+        	return false;
         }
     }
 
