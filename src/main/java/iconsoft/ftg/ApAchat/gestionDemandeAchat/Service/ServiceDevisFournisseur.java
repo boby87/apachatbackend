@@ -124,10 +124,10 @@ public class ServiceDevisFournisseur implements MetierDevisfournisseur {
             }
         });
         if(devisFournisseur[0].getStatut().equals(DevisStatut.VALIDE.name())){
-            da.setStatut(DaStatut.VALIDE.name());
+            /*da.setStatut(DaStatut.VALIDE.name());
             BonCommande bo = new BonCommande();
             bo.setDemandeachat(da);
-            metierBonCommande.saveLocal(bo);
+            metierBonCommande.saveLocal(bo);*/
             return convertDevisFournisseurToDeviFournisseurDto(devisFournisseur[0]);
         } else return null;
     }
