@@ -34,6 +34,10 @@ public class RegisterRestFull {
     public List<Utilisateur> findAllUstilisateurs() {
         return metierAccount.findAllUstilisateurreel();
     }
+    @PutMapping("update")
+    public UtilisateurDto updateUser(@RequestBody UtilisateurDto utilisateurDto){
+        return metierAccount.updateUser(utilisateurDto);
+    }
 
 
 }

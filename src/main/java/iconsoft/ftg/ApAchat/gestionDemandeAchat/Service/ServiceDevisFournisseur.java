@@ -10,8 +10,6 @@ import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DemandeAchat;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DevisFournisseur;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Entities.DevisStatut;
 import iconsoft.ftg.ApAchat.gestionDemandeAchat.Metier.MetierDevisfournisseur;
-import iconsoft.ftg.ApAchat.gestionFournisseurs.Dao.DaoFournisseur;
-import iconsoft.ftg.ApAchat.gestionFournisseurs.Entities.Fournisseurs;
 import iconsoft.ftg.ApAchat.gestionFournisseurs.Metier.MetierFournisseur;
 import iconsoft.ftg.ApAchat.gestionUtilisateur.RandomReference;
 import org.springframework.beans.BeanUtils;
