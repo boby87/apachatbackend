@@ -6,6 +6,7 @@ import java.util.Date;
 public class ArticleDto {
     private String denomination;
     private String caracteristiques;
+    private String marque;
     private Date date;
     private boolean active;
 
@@ -24,6 +25,14 @@ public class ArticleDto {
 
     public void setCaracteristiques(String caracteristiques) {
         this.caracteristiques = caracteristiques;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
     }
 
     public Date getDate() {

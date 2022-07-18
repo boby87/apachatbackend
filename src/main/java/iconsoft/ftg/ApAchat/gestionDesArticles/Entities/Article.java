@@ -10,6 +10,8 @@ public class Article {
     @Column(unique = true)
     private String denomination;
     private String caracteristiques;
+    @Column(nullable = true)
+    private String marque;
     private Date date;
     private boolean active=true;
 
@@ -35,6 +37,14 @@ public class Article {
 
     public void setCaracteristiques(String caracteristiques) {
         this.caracteristiques = caracteristiques;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
     }
 
     public Date getDate() {

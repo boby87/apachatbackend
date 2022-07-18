@@ -46,4 +46,5 @@ public class ServiceArticle implements MetierArticle {
         BeanUtils.copyProperties(article,articleDto);
         return articleDto;
     }
+    
 }
