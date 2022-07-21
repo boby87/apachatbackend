@@ -9,6 +9,7 @@ public interface MetierArticle {
     List<ArticleDto> findByActiveIsTrue();
     ArticleDto findByDenominationAndActiveIsTrue(String denomination);
     ArticleDto saveArticle(ArticleDto articleDto);
-
+    ArticleDto updateArticle(ArticleDto articleDto);
+    void generateCodeArticle(Article article);
 
 }

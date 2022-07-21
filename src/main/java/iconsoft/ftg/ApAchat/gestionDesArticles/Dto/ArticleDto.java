@@ -4,12 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 public class ArticleDto {
+    private String codeArticle;
     private String denomination;
     private String caracteristiques;
     private String marque;
     private Date date;
     private boolean active;
 
+
+    public String getCodeArticle() {
+        return codeArticle;
+    }
+
+    public void setCodeArticle(String codeArticle) {
+        this.codeArticle = codeArticle;
+    }
 
     public String getDenomination() {
         return denomination;

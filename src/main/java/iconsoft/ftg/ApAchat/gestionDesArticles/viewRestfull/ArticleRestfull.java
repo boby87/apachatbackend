@@ -26,4 +26,8 @@ public class ArticleRestfull {
     ArticleDto saveArticle(@RequestBody ArticleDto articleDto){
         return metierArticle.saveArticle(articleDto);
     }
+    @PutMapping("update")
+    ArticleDto updateArticle(@RequestBody ArticleDto articleDto){
+        return metierArticle.updateArticle(articleDto);
+    }
 }

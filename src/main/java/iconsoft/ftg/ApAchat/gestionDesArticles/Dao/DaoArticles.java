@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface DaoArticles extends JpaRepository<Article,Long> {
     List<Article> findByActiveIsTrue();
+    Article findByCodeArticleAndActiveIsTrue(String codeArticle);
     Article findByDenominationAndActiveIsTrue(String denomination);
 }

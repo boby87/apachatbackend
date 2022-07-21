@@ -8,6 +8,8 @@ public class Article {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
+    private String codeArticle;
+    // @Column(unique = true) j'ai enleve parce que le codeArticle est deja unique
     private String denomination;
     private String caracteristiques;
     @Column(nullable = true)
@@ -21,6 +23,14 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodeArticle() {
+        return codeArticle;
+    }
+
+    public void setCodeArticle(String codeArticle) {
+        this.codeArticle = codeArticle;
     }
 
     public String getDenomination() {
